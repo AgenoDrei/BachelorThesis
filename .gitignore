@@ -1,0 +1,40 @@
+# Generated Files
+*.aux
+*.acn
+*.glo
+*.ist
+*.lof
+*.log
+*.lot
+*.lol
+*.toc
+*.alg
+*.glg
+*.gls
+*.acr
+*.out
+*.bbl
+*.blg
+*.run.xml
+*.blg
+*.bcf
+*.bbl
+*-blx.bib
+*.lox
+
+*.pdf
+
+# Temp Folders + Files
+/tmp
+*.*~
+*~
+
+# own Frameworks
+/ownFrameworks.tex
+
+# Folders that are only needed while using it
+/Backup
+/output
+/error.txt
+.TEX/contents.tex
+.TEX/appendices.tex
