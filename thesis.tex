@@ -1,219 +1,147 @@
-%%#######################################################
-%%#                   DHBW ULTIMATE                     #
-%%#          LaTEX template for english papers          #
-%%#           optimized for DHBW Stuttagrt              #
-%%#                  computer science                   #
-%%#                                                     #
-%%#                                                     #
-%%# based on: github.com/dhbw-horb/latexVorlageEnglisch #
-%%#       by: t-kopp                                    #
-%%#           (kevinkepp, ZaiLynch)                     #
-%%#   author: Tobias Dreher, Yves Fischer (2011)        #
-%%#                                                     #
-%%#                                                     #
-%%#     Marius Herget, info@herget.design, TINF14A      #
-%%#######################################################
+%%**************************************************************
+%% Vorlage fuer Bachelorarbeiten (o.ä.) der DHBW
+%%
+%% Autor: Tobias Dreher, Yves Fischer
+%% Datum: 06.07.2011
+%%
+%% Autor: Michael Gruben
+%% Datum: 15.05.2013
+%%
+%% Autor: Markus Barthel
+%% Datum: 22.08.2014
+%%**************************************************************
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%% define your SETTINGS %%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\pdftitel}{Bachelor Thesis}
-\newcommand{\autor}{Simon Mueller}
-\newcommand{\arbeit}{Bachelor Thesis}
-\newcommand{\version}{draft} % change to "final" to disable comments | "draft" shows notes/tbds/etc
-\newcommand{\isPrintVersion}{true}
+\input{ads/header}
 
-%%%% Don't touch! %%%%
-\IfFileExists{.TEX/printversion.tex}
-{\input{.TEX/printversion}}
-{}
-\input{.TEX/header}
-\IfFileExists{ownFrameworks.tex}{\input{ownFrameworks}}{}
-%%%%%%%%%%%%%%%%%%%%%%
-
-% Ab jetzt können auch Umlaute verwendet werden
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%% other SETTINGS %%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\titel}{Portierung einer Storage Lösung zur Verwendung in einer Hybrid Cloud Infrastruktur}
-\newcommand{\untertitel}{Realisierung von verteilten Clusterspeicher für Cloud Anwendungen}
-\newcommand{\matrikelnr}{6073188}
-\newcommand{\kurs}{TINF14A}
-\newcommand{\datumAbgabe}{4. September 2017}
-\newcommand{\firma}{IBM Deutschland GmbH}
-\newcommand{\firmenort}{Ehningen, Deutschland}
-\newcommand{\abgabeort}{Stuttgart}
-\newcommand{\abschluss}{Bachelor of Science}
-\newcommand{\studiengang}{Angewandte Informatik}
-\newcommand{\dhbw}{Stuttgart}
-\newcommand{\betreuer}{Sabine Engels}
-\newcommand{\gutachter}{Gepphardt}
-\newcommand{\zeitraum}{6rd PE}
-\newcommand{\jahr}{2017}
-
-\newcommand{\confidental}{Confidential} % remark right lower corner
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% You don't need to work here if you are not familiar with latex and this template %%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\rofoot*{\confidental}
-
-%% NEW commands for better workfloe
-\newcommand{\impmark}{\strut\vadjust{\domark}}
-\newcommand{\domark}{%
-	\vbox to 0pt{
-		\kern-\dp\strutbox
-		\smash{\llap{*\kern1em}}
-		\vss
-	}%
-}
-\newcommand{\impquest}{\strut\vadjust{\doquest}}
-\newcommand{\doquest}{%
-	\vbox to 0pt{
-		\kern-\dp\strutbox
-		\smash{\llap{?\kern2em}}
-		\vss
-	}%
-}
-% TBD
-\newcommand{\tbd}[1][null]{
-	\ifthenelse{\equal{#1}{null}}
-	{\fxwarning[]{\textit{\impmark\color{orange}(TBD)} }}
-	{\fxnote[]{\textit{\impmark\color{orange}#1}}}
-}
-\newcommand{\todo}[1][null]{
-	\ifthenelse{\equal{#1}{null}}
-	{\fxwarning[]{\textit{\impmark\color{orange}(TBD)} }}
-	{\fxnote[]{\textit{\impmark\color{orange}#1}}}
-}
-
-\newcommand{\question}[1][???]{\fxfatal[]{\impquest\color{red}#1}}
-\let\origdoublepage\cleardoublepage
-\renewcommand{\cleardoublepage}{%
-	\clearpage
-	{\pagestyle{empty}\origdoublepage}%
-}
-
-\cleardoublepage
 \makeglossaries
-\input{content/glossary}
+\input{ads/glossary}
 
 \begin{document}
-% Deckblatt
-\begin{spacing}{1}
-	\cleardoublepage
-	\input{.TEX/cover}																									% LANGUAGE
-	\cleardoublepage
-	\listoffixmes % todos
-\end{spacing}
-\newpage
 
-\renewcommand{\thepage}{\Roman{page}}
-\setcounter{page}{1}
+	% Deckblatt
+	\begin{spacing}{1}
+		\input{ads/deckblatt}
+	\end{spacing}
+	\newpage
 
-% Declaration
-\cleardoublepage
-\input{content/declaration}																						% LANGUAGE
-\newpage
+	% Sperrvermerk
+%	\input{ads/sperrvermerk}
+%	\newpage
 
-% Abstract
-\cleardoublepage
-\input{content/abstract}
-\newpage
+	% Erklärung
+	\input{ads/erklaerung}
+	\newpage
 
-\pagestyle{scrheadings}
+	% Abstract
+	\input{ads/abstract}
+	\newpage
 
-% Table of contents
-\begin{spacing}{1}
-	\cleardoublepage
+	\pagestyle{plain}		% nur Seitenzahlen im Fuß
+	
+	%\RedeclareSectionCommand[beforeskip=\kapitelabstand]{chapter} % stellt Abstand vor Kapitelüberschriften ein
+
+	% Inhaltsverzeichnis
+	\begin{spacing}{1.1}
+		\begingroup
+		
+			% auskommentieren für Seitenzahlen unter Inhaltsverzeichnis
+			\renewcommand*{\chapterpagestyle}{empty}
+			\pagestyle{empty}
+			
+			%\setcounter{tocdepth}{1}
+			%für die Anzeige von Unterkapiteln im Inhaltsverzeichnis
+			\setcounter{tocdepth}{2}
+			
+			\tableofcontents
+			\clearpage
+		\endgroup
+	\end{spacing}
+	\newpage
+	
 	\pagenumbering{Roman}
-	\setcounter{tocdepth}{3}
-	\tableofcontents
+
+	% Abkürzungsverzeichnis
 	\cleardoublepage
-\end{spacing}
+	\input{ads/acronyms}
+	
+%	\newpage\null\thispagestyle{plain}\newpage
 
-% Abbildungsverzeichnis
-\cleardoublepage
-\phantomsection \label{listoffig}\addcontentsline{toc}{chapter}{\listfigurename}
-																																% LANGUAGE
-\listoffigures
+	% Abbildungsverzeichnis
+	\cleardoublepage
+	\listoffigures
+	
+%	\newpage\null\thispagestyle{plain}\newpage
 
-% Tabellenverzeichnis
-\cleardoublepage
-\phantomsection \label{listoftab}\addcontentsline{toc}{chapter}{\listtablename}
-																																% LANGUAGE
-\listoftables
+	%Tabellenverzeichnis
+	\cleardoublepage
+	\listoftables
+	
+%	\newpage\null\thispagestyle{plain}\newpage
 
-% Quellcodeverzeichnis
-\cleardoublepage
-\phantomsection \label{listoflist}\addcontentsline{toc}{chapter}{List of \lstlistlistingname}
-																																% LANGUAGE
-\lstlistoflistings
+	% Quellcodeverzeichnis
+	\cleardoublepage
+	\lstlistoflistings
+	\cleardoublepage
 
-% Abkürzungsverzeichnis
-% vorher in Konsole folgendes aufrufen:
-%	makeglossaries makeglossaries dokumentation.acn && makeglossaries dokumentation.glo
-\cleardoublepage
-%\phantomsection
-\printglossary[type=\acronymtype]
-% Glossar
-\cleardoublepage
-%\phantomsection
-\printglossary[style=altlist,title=Glossary]
+	\pagenumbering{arabic}
+	
+	\pagestyle{headings}		% Kolumnentitel im Kopf, Seitenzahlen im Fuß
 
-\cleardoublepage \clearpage
-\pagenumbering{arabic}
-% Inhalt
-\setstretch{1,5} % 1,5zeilig
-\patchcmd{\chapter}
-{\clearpage}
-{\cleardoublepage}
-{}
-{}
-% contents file is generated by make
-\IfFileExists{.TEX/contents.tex}
-{\input{.TEX/contents}}
-{NO CONTENTS FILE AVAILABLE.\\
-	\textbf{Please render with makefile or create a file like the following:}\\
-	\textbackslash\{content/main/filename1\}\\
-	\textbackslash\{content/main/filename2\}\\
-}
-\setstretch{1}
+	% Einleitung
+	\input{content/Einleitung.tex}
+	
+	% Theoretische Grundlagen
+	\input{content/Grundlagen.tex}
+		
+	% Planung
+	\input{content/Planung.tex}
+	
+	% Setup
+	\input{content/Setup.tex}
+	
+	% Umsetzung
+	\input{content/Umsetzung.tex}
+	
+	% Schlussbetrachtung
+	\input{content/Schlussbetrachtung.tex}
+	
+	% Fazit
+%	\input{content/Fazit.tex}
 
-% Anhang
-\clearpage
-\pagenumbering{roman}
+	% Inhalt
+	%\foreach \i in {01,02,03,04,05,06,07,08,09,...,99} {%
+	%	\edef\FileName{content/\i kapitel}%
+	%		\IfFileExists{\FileName}{%
+	%			\input{\FileName}
+	%		}
+	%		{%
+	%			%file does not exist
+	%		}
+	%}
 
-% Literaturverzeichnis
-\cleardoublepage
-\phantomsection \label{listoflit}
-\addcontentsline{toc}{chapter}{Bibliography}
-															 % LANGUAGE
-\printbibliography
+	\clearpage
+		
+	\pagenumbering{roman}
+	
+	% Literaturverzeichnis
+	\cleardoublepage
+	\printbibheading
+	\printbibliography[nottype=online,heading=subbibliography,title={Publikationen}]
+	\printbibliography[type=online,notkeyword=Gesetz,notkeyword=Standard,heading=subbibliography,title={Online Quellen}]
+	\printbibliography[type=online,keyword=Gesetz,heading=subbibliography,title={Rechtsquellenverzeichnis}]
+	\printbibliography[type=online,keyword=Standard,heading=subbibliography,title={Standards \& Normen}]
+	
+%	\renewcommand\bibname{Literaturverzeichnis}
+%	\printbibliography
 
-
-\cleardoublepage
-% Appendix
-\IfFileExists{.TEX/appendices.tex}
-{
-	\captionsetup{list=no}
-	%\addtocontents{lof}{\protect\setcounter{tocdepth}{0}} %trick to dont show appendicies in table of contents/figures/...
-
-	\begin{appendices}\label{appendices}
-		\lofoot*{Appendices}
-		\cleardoublepage
-		\pagenumbering{arabic}
-		\renewcommand{\thesubsection}{\Alph{subsection}}
-		\input{.TEX/appendices.tex}
-	\end{appendices}
-}
-{}
+%	\newpage\null\thispagestyle{plain}\newpage
+	
+	% Glossar
+	\printglossary[style=altlist,title=\langglossar]
+	
+	% sonstiger Anhang
+	\clearpage
+	\appendix
+	\input{ads/appendix}
+	
 \end{document}

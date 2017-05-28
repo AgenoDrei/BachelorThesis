@@ -1,3 +1,6 @@
+*.pdf
+output/
+
 # Generated Files
 *.aux
 *.acn
@@ -21,20 +24,3 @@
 *.bbl
 *-blx.bib
 *.lox
-
-*.pdf
-
-# Temp Folders + Files
-/tmp
-*.*~
-*~
-
-# own Frameworks
-/ownFrameworks.tex
-
-# Folders that are only needed while using it
-/Backup
-/output
-/error.txt
-.TEX/contents.tex
-.TEX/appendices.tex
