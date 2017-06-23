@@ -7,10 +7,23 @@ In diesem Kapitel werden diese Hintergründe erläutert.
 \section{Speicher Lösungen}
 Speicherung von Daten ist ein wichtiges Thema in der IT, wodurch unzählige Technologien entstanden sind. Hier werden erst Hardware Speicher beschrieben und danach verschiedene Arten, diesen innerhalb von Rechnernetzwerken zusammenzustellen.
 
+\begin{figure}[hbt]
+	\centering
+	\includegraphics[scale=0.75]{images/storage-pyramide}
+	\caption{Speicher Pyramide \parencite{kaufmann.2016}}
+	\label{fig:storagepyramide}
+\end{figure}
+
+Prinzipiell kann Speicher immer in eine Art Hierarchie eingeteilt werden. Extrem häufige verwendete Daten landen auf der Ersten Ebene. Diese wird meistens in Form von Cache oder RAM bereitgestellt und bietet extrem kurze Latenz, aber nur geringen Speicherumfang.
+
+Auf der nächsten Ebene stehen schnelle Speichermedien, zum Beispiel SSDs. Direkt darunter ordnen sich klassische Festplatten Speicher ein, die den Großteil des Speichervolumens zur Verfügung stellen. Sie haben höhere Latenzen sind aber dafür günstig und haben eine hohe Kapazität \parencite[Kap. 2, What is Computer Storage?]{kaufmann.2016}.
+
+Mit der letzten Stufe ``Cloud Speicher'' wird sich intensiver in der \autoref{sec:cloud} auseinander gesetzt.
+
 \input{content/storage}
 
 \section{Speicheranwendungen}
 \input{content/parallelstorage}
 
-\section{Cloud Computing}
+\section{Cloud Computing}\label{sec:cloud}
 \input{content/cloud}
