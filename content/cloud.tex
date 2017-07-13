@@ -1,23 +1,48 @@
 %Insert General explanation here
+\todo{Weitere Quellen benutzen}
 
-Cloud Computing kann als eine neue Art der Bereitstellung von Programmen, Diensten und Infrastruktur betrachtet werden, die häufig virtualisiert und automatisch skalierbar ist.
-Software, Laufzeiten und sogar Plattformen werden in einem verteilten Serverclusters angeboten. Diese können dann von jeder Art  Client Geräten (Personal Computer, Smartphones, \ac{IoT} Devices) angesprochen werden.
+Cloud Computing kann als eine neue Art der Bereitstellung von Programmen, Diensten und Infrastruktur betrachtet werden, die häufig virtualisiert und automatisch skalierbar ist. Es ist die logische Weiterentwicklung von Netzwerk oder Internet Computing und hilft dabei vorhandene Ressourcen besser auszunutzen. 
+Software, Laufzeiten und sogar Plattformen werden in einem verteilten Serverclusters angeboten. Diese können dann von jeder Art  Client Geräten (Personal Computer, Smartphones, \ac{IoT} Devices) angesprochen werden. Außer Anwendungen werden häufig  auch Speicher, bestimmte Dienste oder Entwicklungswerkzeuge über die Cloud angeboten \parencite[S. 3]{furth.2010}.
 
-\subsection{Hauptbestandteile}
+Ein großer Vorteil von Cloud Umgebung ist die Dezentralisierung von Anwendungen. Statt für eine Applikation einen einzelnen Server zu nutzen, wird diese in einem Netz von diesen virtualisiert. Dieses Netz von Servern kann eine Vielzahl von Anwendungen provisonieren und bei Bedarf automatisch höhere Leistung zuordnen. Hierdurch werden Kosten gespart und eine bessere Verfügbarkeit garantiert \parencite[S. 7]{furth.2010}.
 
+Es gibt einige Schlüsseltechnologien die Cloud Computing erst ermöglichen. 
+
+Zum einen ist Virtualisierung extrem wichtig, da Container und virtuelle Maschinen auf verschiedenen Servern gehostet werden können (Entkopplung von Anwendung, OS, Hardware und Nutzerdaten), um unterschiedliche Anwendungen für globale Zugriffspunkte bereitzustellen. 
+Sobald mehr Performance notwendig ist (mehr Zugriffe) können diesen mehr Serverleistung bekommen oder es werden weitere Instanzen auf zusätzlichen Rechnern erzeugt.
+Um diese effektiv umzusetzen besitzen Cloud Systeme einen Load Balancer, der automatisch Zugriffe auf die bereitstellenden Server verteilt und dafür sorgt, dass zum Beispiel Sitzungen aufrecht erhalten werden (Die Zugriffe eines Nutzer landen immer auf dem selben Server).
+Zur Loslösung von Speicher wird dieser gerne in separaten \acs{SAN} ausgelagert \parencite[S. 22]{rafaels.2015}.
 \subsection{Cloud Modelle}
 %On/Off Premise
 %SaaS / PaaS / IaaS
 
-\subsubsection{Public Cloud}
+Es gibt verschiedene Cloud Modelle, die jeweils unterschiedliche Features für den User bereitstellen. Hauptsächlich unterscheidet man hier zwischen \ac{IaaS}, \ac{PaaS} und \ac{SaaS}, welche aber auch gleichzeitig vom selben Anbieter zur Verfügung stehen können.
 
-\subsubsection{Private Cloud}
+\begin{itemize}
+	\item \textbf{IaaS}:\\
+	Dem Nutzer hat die Kontrolle über das zu verwendende OS, den Speicher und gehostete Anwendungen. Nur die unterliegende Cloud Infrastruktur ist nicht veränderbar und häufig sind auch nur bestimmte Teile der Firewall anpassbar.
+	\item \textbf{PaaS}:\\
+	In diesem Fall hat der Nutzer keine Wahl was Betriebssystem, Netzwerk Fähigkeiten oder Speicher angeht, es existiert eine vorinstallierte Umgebung (Datenbanken, Frameworks, Laufzeiten, usw.) zum Ausführen von eigenen Applikationen. Begrenzt bestehen Konfigurationsmöglichkeiten für die Hosting Umgebung der Software. 
+	\item \textbf{SaaS}:\\
+	Es wird nur eine bestimmte Anwendung oder Interface dem Nutzer offengelegt. Er kann diese verwenden und ggf. seine persönliche Instanz konfigurieren, hat aber keinerlei Kontrolle über die unterliegend Laufzeit Umgebungen, den Speicher, das Netzwerk oder das OS \parencite[S. 15f]{rafaels.2015}.
+\end{itemize}
 
-\subsubsection{Hybrid Cloud}
+Des weiteren können Cloud Server in verschiedenen Umgebungen installiert werden, um Zugriff, Sicherheit und Verfügbarkeit zu regulieren.
+
+\begin{itemize}
+	\item \textbf{Public Cloud}:\\
+	Die Cloud Server sind öffentlich zugänglich und jeder kann Anwendungen erstellen und über die Infrastruktur bereitstellen. Das System wird meistens von einer Firma oder Regierungsstelle betrieben und die notwendige Hardware steht auf dessen Gelände. 
+	\item \textbf{Private Cloud}:\\
+	Die gesamte Cloud Infrastruktur wird nur für einen Kunden zur Verfügung gestellt und ist nur für diesen zugänglich. Sie kann von ihm oder einer dritten Gruppen gemanagt werden. Es besteht die Möglichkeit das System auf dem Gelände des Käufers zu installieren, um zum Beispiel Datensicherheit von kritischen Informationen zu gewährleisten. 
+	\item \textbf{Hybrid Cloud}:\\
+	Eine Hybrid Cloud verbindet Elemente aus einem öffentlichen und privaten Setup. Zum Beispiel können Teile der Berechnung in der public Cloud stattfinden und Personaldaten auf den privaten Servern verbleiben. Hierdurch können Datenschutz Bedenken berücksichtigt und die Vorteile öffentlichen Cloud Computings ausgenutzt werden. Zur Kommunikation zwischen den beiden Server Clustern können verschiedene standardisierte Schnittstellen verwendet werden (z.B. REST)  \parencite{rafaels.2015}.
+\end{itemize}
 
 \subsection{Anbieter}
-\subsubsection{IBM Bluemix}
-\subsubsection{Microsoft Azure}
-\subsubsection{Amazon Web Services}
+Durch die Popularität von Cloud Computing gibt es mittlerweile an Vielzahl von Anbietern, an dieser Stelle werden einige der wichtigsten kurz vorgestellt.
+
+\textbf{IBM Bluemix}\\
+\textbf{Microsoft Azure}\\
+\textbf{Amazon Web Services}\\
 
 \subsection{Entwicklung in einem Cloud System}
