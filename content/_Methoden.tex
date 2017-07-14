@@ -1,6 +1,22 @@
 \chapter{Methoden}\label{ch:methods}
 
+In diesem Kapitel werden notwendige Komponenten der zu entwickelnden Hybrid Cloud Lösungen ausgewählt und begründet. Ebenfalls werden Techniken beschrieben, die bei der Entwicklung der Demoapplikation verwendet werden. 
+
+Einschränkungen bei der Wahl von Lösungen sind aufgrund der Umgebung \ref{subsec:enviroment} vorhanden und werden entsprechend hier gekennzeichnet und diskutiert.
+
 \section{Auswahl des verteilten Dateisystems}
+Bei der Wahl des Dateisystems müssen die ursprüngliche Anwendungsszenarien von Hadoop und Spectrum Scale betrachtet werden. 
+
+Apache Hadoop soll dafür verwendet werden, Operationen auf möglichsten effiziente Weise in einem verteilten System ausführen. \acs{HDFS} stellt hierbei die Speicherkomponente dar und baut auf normalen ext4 Dateisystemen auf. Dies macht insbesondere Sinn, da Hadoop Cluster meistens aus gewöhnlicher Hardware bestehen. Nachteil hiervon ist ein erschwerter Zugriff, da auf das System mit einem speziellen Set Befehlen immer von außen zugegriffen und eine Datenveränderung erst innerhalb der geschachtelten Systeme ausgetauscht werden muss.
+Hadoop ist Open Source und kann somit kostenlos verwendet werden \parencite{snowflake.2016}. 
+
+Spectrum Scale hingegen war ursprünglich als proprietärer High-Performance Speicher System für jede Art von Anwendung entworfen worden. Es kann alle mögliche Arten von Storage Typen (\acs{SAN}, \acs{NAS}, \acs{DAS}) anbinden und diese über eine einheitliche Schnittstelle dem Nutzer zur Verfügung stellen. Die verschiedene Hardware kann abgestuft werden, sodass alte oder kalte Daten auf langsame Speicher verschoben oder in die Cloud gespeichert werden.  Durch die \gls{POSIX} Konformität von \acs{GPFS} ist ein einfaches Navigieren sämtlicher Dateien im Cluster möglich und Veränderungen werden direkt angewendet \parencite{snowflake.2016}.
+
+Insgesamt gewinnt \acs{GPFS} im Sinne von Performance, da es ein Kernel-Level Dateisystem ist auf das wesentlich schneller zugegriffen werden kann. Es existieren Erweiterungen für Cloud Tiering und Sharing, die in dieser Form nicht bei HDFS existieren. Jede Art von Anwendung kann durch \acs{GPFS} profitieren, auch klassische Anwendungen, die nicht in einem verteilten System laufen.
+
+Außerdem entfallen möglichen Kosten von Spectrum Scale, da diese Arbeit in einer IBM Abteilung angefertigt wird und somit einfacher Zugriff auf die Software besteht.
+
+Aus den oben diskutierten Gründen wird in dieser Arbeit \textbf{IBM Spectrum Scale} verwendet.
+
 \section{Auswahl des Cloud Anbieters}
-\section{Auswahl der Datenbank Lösung}
-\section{Entscheidung für Demoentwicklung}
+\section{Demoentwicklung - Auswahl der Laufzeitumgebung und Dienste}

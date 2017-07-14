@@ -6,7 +6,7 @@ Neben einfachen Datenzugriff werden ein Vielzahl von zusätzlichen Features gebo
 
 \textbf{Hauptkomponenten und Funktionen}
 
-Von jedem Knoten des Clusters kann gleichzeitig auf sämtliche Daten zugegriffen werden. Der Zugriff kann über Systemfunktionen (open, read, write) oder speziellen APIs erfolgen. Auf jedem dieser einzelnen GPFS Knoten sind drei Hauptkomponenten installiert.
+Von jedem Knoten des Clusters kann gleichzeitig auf sämtliche Daten zugegriffen werden. Aufgrund der \gls{POSIX} Kompatibilität kann der Zugriff über Systemfunktionen (open, read, write) oder speziellen APIs erfolgen. Dies vereinfacht die Bedienung erheblich, da der Cluster für den einzelnen Rechner wie eine ``normale'' Festplatte erscheint. Auf jedem GPFS Knoten sind drei Hauptkomponenten installiert:
 
 \begin{itemize}
 	\item \textbf{GPFS Administration Kommandos} \\
