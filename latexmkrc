@@ -7,6 +7,10 @@ $ps_mode = 0;
 
 $recorder = 1;
 
+#$hash_calc_ignore_pattern{'*.aux'} = '^';
+$max_repeat = 3;
+
+
 $bibtex_use = 2; # remove .bbl from output on clean
 # remove all temporary files which are not removed automatically from output on clean
 @generated_exts = qw(fls lof lot toc glg glo gls ist lol run.xml synctex.gz);
