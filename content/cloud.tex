@@ -39,16 +39,32 @@ Des weiteren können Cloud Server in verschiedenen Umgebungen installiert werden
 \end{itemize}
 
 \subsection{Anbieter}
-Durch die Popularität von Cloud Computing gibt es mittlerweile an Vielzahl von Anbietern, an dieser Stelle werden nur die drei Größten (1. Amazon Web Services, 2. Microsoft, 3. IBM) kurz vorgestellt \parencite. Es wird sich hierbei auf Anbieter beschränkt, die mindestens \acs{PaaS} Funktionalitäten bieten, da für das Projekt dieser Arbeit eigene Anwendungen entwickelt werden müssen.
+Durch die Popularität von Cloud Computing gibt es mittlerweile an Vielzahl von Anbietern, an dieser Stelle werden nur die drei Größten (1. Amazon Web Services, 2. Microsoft, 3. IBM) kurz vorgestellt \parencite{statistia.2016}. Es wird sich hierbei auf Anbieter beschränkt, die mindestens \acs{PaaS} Funktionalitäten bieten, da für das Projekt dieser Arbeit eigene Anwendungen entwickelt werden müssen.
+
 
 \textbf{Amazon Web Services}\\
-Amazon ist im Moment der Marktführer mit fast 30 Prozent Marktanteil. Dies basiert zum einen darauf, dass \ac{AWS} er mit einer der ersten modernen Anbieter (seit 2002 in einfacher Form) ist und es eine Vielzahl von Diensten gibt. Es gibt sowohl direkt ansprechbare Services für Speicher, Rechenleistung und Netzwerk Fähigkeiten für \acs{PaaS} Aufgaben als auch VM Systeme und Container für frei konfigurierbare Anwendungen (\acs{IaaS}).
+Amazon ist im Moment der Marktführer mit fast 30 Prozent Marktanteil. Dies basiert zum einen darauf, dass \ac{AWS} er mit einer der ersten modernen Anbieter (seit 2002 in einfacher Form und seit 2006 mit den ersten Cloud Services) ist und es eine Vielzahl von Diensten gibt. Es gibt sowohl direkt ansprechbare Services für Speicher, Rechenleistung und Netzwerk Fähigkeiten für \acs{PaaS} Aufgaben als auch VM Systeme und Container für frei konfigurierbare Anwendungen (\acs{IaaS}).
 
 Zum Beispiel die \ac{S3} Schnittstelle wurde von Amazon entwickelt und wird an einer Vielzahl von Stellen für die Kommunikation mit Objekt Speichersystemen verwendet \parencite{aws.2017}.
 
+Aufgrund Amazons langer Geschichte mit Cloud Computing bieten sie im Moment die meisten Datencenter weltweit an und haben mehr Rechenleistung als die beiden anderen Konkurrenten zusammen. Auch bei der Auswahl von Diensten, haben Entwickler hier die meiste Vielfalt. Als Nachteil gelten eine gewisse Komplexität bei der Nutzung und eine Vernachlässigung des Hybrid und Privat Cloud Angebots \parencite{computerworlduk.2016}.
+
+
 \textbf{Microsoft Azure}\\
+Azure ist die Anwendungsplattform von Microsoft für eine öffentliche Cloud mit \acs{PaaS} und \acs{IaaS} Features. Sie ist spezialisiert für die Kombination mit Microsoft Diensten, Programmiersprachen und Lösungen. Mithilfe eines Management Portals lassen sich gehostete Applikationen verwalten. 
+
+Es besteht die Möglichkeit \ac{VM}s oder Web Applikationen, für die eine Bandbreite an verschiedenen Diensten zur Verfügung steht, zu erzeugen. Es können ganze \acs{VM}s, Container oder auch nur einzelne lokale Komponenten (z.B. Speicher )aus on-premise Datencentern leicht in die Cloud gehoben werden.
+
+Insgesamt gibt es viele Überschneidungen mit \acs{AWS}, aber die Kompatibilität mit Microsoft/Windows Komponenten ist wesentlich höher und andere Lösungen sind weniger vertreten \parencite{microsoft.2015}.
+
+
 \textbf{IBM Bluemix}\\
+Bei Bluemix handelt es sich um die \acs{PaaS}/\acs{IaaS} (wobei diese Funktion von Softlayer zur Verfügung gestellt werden) Lösung von IBM, die zuerst 2014 das erste Mal vorgestellt wurde. Außer der Möglichkeit \acs{VM}s, Root Server und Docker Container zu hosten, werden eine Vielzahl von IBM und Drittpartei Dienste angeboten, die von Speicher bis zu \acs{IoT} oder Maschinen Lernen reichen.
 
+Es kann in einer Vielzahl populärer Sprache entwickelt werden (Node, PHP, Ruby, Java, Go...) und es gibt so genannte Buildpacks, die nicht vorhandene Laufzeit Umgebungen zum Teil nachrüsten. Ebenfalls kann Bluemix als private Cloud oder in einem "dedizierten" Modus zur Verfügung gestellt werden. Bei diesem wird garantiert, dass eine \acs{VM} nur auf einem isolierten Bare-Metal Server läuft.
 
+In der Bluemix Konsole (Management Oberfläche) lassen sich auch einige \gls{DevOps} Funktionen konfigurieren. Es gibt einen eigenen Code Editor, Gitlab Integration und eine Buildpipeline für \ac{CI} \parencite{fassnacht.2016}.
+
+Im Vergleich zur Konkurrenz bietet IBM viele \acs{IaaS} Dienste, kann aber bei Funktionen für Entwickler von Anwendungen nicht mithalten \parencite{computerwoche.2016}. 
 
 \subsection{Entwicklung in einem Cloud System} \todo{Maybe remove or move to chapter 3}
