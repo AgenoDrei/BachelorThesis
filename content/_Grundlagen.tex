@@ -4,7 +4,7 @@ Zum Aufsetzen einer Hybrid Cloud Umgebung und dem Entwickeln einer auf dieser la
 
 In diesem Kapitel werden diese Hintergründe erläutert.
 
-\section{Speicher Lösungen}
+\section{Speicher Lösungen} \label{sec:storage}
 Speicherung von Daten ist ein wichtiges Thema in der IT, wodurch unzählige Technologien entstanden sind. Hier werden erst Hardware Speicher beschrieben und danach verschiedene Arten, diesen innerhalb von Rechnernetzwerken zusammenzustellen.
 
 \begin{figure}[hbt]
@@ -24,7 +24,7 @@ Mit der letzten Stufe ``Cloud Speicher'' wird sich intensiver in der \autoref{se
 
 \newpage
 
-\section{Dateisysteme}
+\section{Dateisysteme} \label{sec:filesystems}
 
 Für Anwendungen und Nutzer organisiert ein Dateisystem eine abstrahierte Sicht auf sämtlichen Daten. Es stellt eine Schnittstelle zur Verfügung für Online-, Offline- und Programmzugriff. Ein Filesystem besteht aus einer Sammlung aller Dateien und einer Ordnerstruktur, die erstere organisiert und beschreibt. 
 
@@ -35,4 +35,17 @@ Im Folgenden werden verschieden Clustersysteme, ihre Vor- und Nachteile untersuc
 \input{content/parallelstorage}
 
 \section{Cloud Computing}\label{sec:cloud}
+
+Cloud Computing kann als eine neue Art der Bereitstellung von Programmen, Diensten und Infrastruktur betrachtet werden, die häufig virtualisiert und automatisch skalierbar ist. Es ist die logische Weiterentwicklung von Netzwerk oder Internet Computing und hilft dabei vorhandene Ressourcen besser auszunutzen. 
+Software, Laufzeiten und sogar Plattformen werden in einem verteilten Serverclusters angeboten. Diese können dann von jeder Art  Client Geräten (Personal Computer, Smartphones, \ac{IoT} Devices) angesprochen werden. Außer Anwendungen werden häufig  auch Speicher, bestimmte Dienste oder Entwicklungswerkzeuge über die Cloud angeboten \parencite[S. 3]{furth.2010}.
+
+Ein großer Vorteil von Cloud Umgebung ist die Dezentralisierung von Anwendungen. Statt für eine Applikation einen einzelnen Server zu nutzen, wird diese in einem Netz von diesen virtualisiert. Dieses Netz von Servern kann eine Vielzahl von Anwendungen provisonieren und bei Bedarf automatisch höhere Leistung zuordnen. Hierdurch werden Kosten gespart und eine bessere Verfügbarkeit garantiert \parencite[S. 7]{furth.2010}.
+
+Es gibt einige Schlüsseltechnologien die Cloud Computing erst ermöglichen. 
+
+Zum einen ist Virtualisierung extrem wichtig, da Container und virtuelle Maschinen auf verschiedenen Servern gehostet werden können (Entkopplung von Anwendung, OS, Hardware und Nutzerdaten), um unterschiedliche Anwendungen für globale Zugriffspunkte bereitzustellen. 
+Sobald mehr Performance notwendig ist (mehr Zugriffe) können diesen mehr Serverleistung bekommen oder es werden weitere Instanzen auf zusätzlichen Rechnern erzeugt.
+Um diese effektiv umzusetzen besitzen Cloud Systeme einen Load Balancer, der automatisch Zugriffe auf die bereitstellenden Server verteilt und dafür sorgt, dass zum Beispiel Sitzungen aufrecht erhalten werden (Die Zugriffe eines Nutzer landen immer auf dem selben Server).
+Zur Loslösung von Speicher wird dieser gerne in separaten \acs{SAN} ausgelagert \parencite[S. 22]{rafaels.2015}.
+
 \input{content/cloud}
