@@ -8,7 +8,7 @@ $ps_mode = 0;
 $recorder = 1;
 
 #$hash_calc_ignore_pattern{'*.aux'} = '^';
-$max_repeat = 3;
+$max_repeat = 4;
 
 
 $bibtex_use = 2; # remove .bbl from output on clean

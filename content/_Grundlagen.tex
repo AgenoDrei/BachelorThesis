@@ -45,7 +45,16 @@ Es gibt einige Schlüsseltechnologien die Cloud Computing erst ermöglichen.
 
 Zum einen ist Virtualisierung extrem wichtig, da Container und virtuelle Maschinen auf verschiedenen Servern gehostet werden können (Entkopplung von Anwendung, OS, Hardware und Nutzerdaten), um unterschiedliche Anwendungen für globale Zugriffspunkte bereitzustellen. 
 Sobald mehr Performance notwendig ist (mehr Zugriffe) können diesen mehr Serverleistung bekommen oder es werden weitere Instanzen auf zusätzlichen Rechnern erzeugt.
-Um diese effektiv umzusetzen besitzen Cloud Systeme einen Load Balancer, der automatisch Zugriffe auf die bereitstellenden Server verteilt und dafür sorgt, dass zum Beispiel Sitzungen aufrecht erhalten werden (Die Zugriffe eines Nutzer landen immer auf dem selben Server).
+Um diese effektiv umzusetzen besitzen Cloud Systeme einen Load Balancer oder Router, der automatisch Zugriffe auf die bereitstellenden Server verteilt und dafür sorgt, dass zum Beispiel Sitzungen aufrecht erhalten werden (Die Zugriffe eines Nutzer landen immer auf dem selben Server).
 Zur Loslösung von Speicher wird dieser gerne in separaten \acs{SAN} ausgelagert \parencite[S. 22]{rafaels.2015}.
+
+Wie in \autoref{fig:cloudarchtecture} zu sehen ist, besteht ein Cloud System aus vielen unterschiedlichen Komponenten, verteilt über eine Vielzahl von Servern, um Systemfunktionalitäten über ein \ac{WAN} verfügbar zu machen.   
+
+\begin{figure}[hbt]
+	\centering
+	\includegraphics[scale=0.75]{images/cloud-architecture}
+	\caption{Hauptkomponenten eines Cloud Systems anhand des Beispiels von Cloud Foundry  \parencite{cloudfoundry.2017}}
+	\label{fig:cloudarchtecture}
+\end{figure}
 
 \input{content/cloud}
