@@ -2,7 +2,6 @@ Obwohl Spectrum Scale eigentlich dafür vorgesehen ist, auf verschiedenen System
 
 Dies ist für ein Produktivsystem absolut nicht zu empfehlen, da aufgrund der verteilten Architektur von Scale ein hoher Leistungsmehraufwand auf einem einzelnen Rechner entsteht und kein Gewinn aus parallelem Dateizugriff gezogen werden kann.
 
-\todo{Nachfragen, ob manuelles Aufsetzen von der TrialVM disskutiert werden soll}
 Für diese Arbeit wird ein vorbereitetes Abbild verwendet, das bereits eine ältere Version von Cloud Tiering unterstützt.
 
 \textbf{Vorbereitung der Host Maschine}\\
@@ -85,5 +84,18 @@ Diese grundsätzliche Konfiguration nach individueller Anpassung kann wieder üb
 \end{lstlisting}
 \todo{XML Files in den Anhang}
 
+Die VM ist nun nach dem ersten Start vollständig aufgesetzt und die Administrationsoberfläche über die IP 192.168.56.101 zugänglich.
 
+\textbf{Update des Spectrum Scale Systems}\\
+Nach ersten Versuchen mit dem Spectrum Scale System Version 4.2.2.1 hat sich herausgestellt, dass das Cloud Tiering Feature nicht mit der öffentlichen Version von \acs{COS} kommunizieren kann. Die Verbindung kommt nicht zustande, da keine abweichende Endpunkt URL angenommen wird.
+
+Deswegen muss zuerst die Version 4.2.3.1 installiert werden, um unser Hybrid Cloud Setup zu ermöglichen. Bei Spectrum Scale geschieht dies normalerweise ausgehend von einem Administrationsknoten, der dann die Updates über das gesamte Netz verteilt. Die Patchdatei wird mithilfe von \ac{SCP} von der Hostmaschine auf das, in dieser Konstellation bestehende, Gastsystem kopiert.	
+
+Dort kann sie ausgeführt werden, wodurch sich das Installationstool \textit{spectrumscale} installiert. Nachdem man in diesem die Adressen der Knoten (hier der eigene), kann die Aktualisierung gestartet werden. Das Werkzeug ist hierbei selbst erklärend und führt durch die einzelnen Schritte, es werden auch entsprechende Hinweise für fehlende Konfigurationseingaben gegeben.
+Im Laufe von dieser müssen eventuell der Cloud Service manuell gestoppt werden, sofern eine entsprechende Fehlermeldung angezeigt wird.
+
+Nach erfolgreichen Update kann nun die Cloud Funktionalität konfiguriert werden.
+
+\textbf{Installation Transparent Cloud Tiering}\\
+\todo{Nachfragen, ob manuelles Aufsetzen von der TrialVM disskutiert werden soll}
 

@@ -33,7 +33,7 @@ Eine Variante ist der Anschluss von sämtlichen Knoten an das selbe Storage Area
 
 \textbf{Verbindung mit Cloud Diensten}
 
-Cloud Dienste mit Spectrum Scale bieten zwei Funktionsweisen: \textbf{Cloud Tiering} und \textbf{Data Sharing}.
+Cloud Dienste mit Spectrum Scale bieten zwei Funktionsweisen: \textbf{Cloud Tiering} und \textbf{Data Sharing}. Es können maximal vier verschiedene Knoten und ein Dateisystem für diese Dienste verwendet werden \parencite{mani.2017}.
 
 Im ersten Szenario werden so genannte kalte Daten (also Dateien, die selten benutzt werden und geringe Zugriffszahlen haben) in der Cloud gespeichert, um die schnellen lokalen Datenspeicher zu entlasten. Dadurch kann die Clusterperformance erhöht und kosten für zusätzlichen Speicher gespart werden. Diese Funktion ist das Information Lifecycle Management (\ac{ILM}) System eingebunden und ermöglicht es den Administratoren Strategien zu definieren, um die Auslagerung bei bestimmten Daten auszulösen.
 Es sollten nur kalte Files in der Cloud gespeichert werden, da diese bei Zugriff zu downloaden sind, was die Latenz massiv erhöht \parencite[S. 107]{ibm.2017}.
@@ -42,6 +42,8 @@ Lokal wird ein Cloud Verzeichnis angelegt, welches alle migrierten Daten auflist
 Beim Cloud Sharing ermöglicht das Teilen von lokalen Daten mit verschiedenen Arten von Objekt Speichern (\autoref{subsec:objectstorage}). Dieser Export kann ebenfalls durch IML Strategien in regelmäßigen Zyklen ausgelöst werden, um zum Beispiel Daten in der Cloud aktuell zu halten. Diese können dann von anderen Applikationen verwendet werden. Es ist ebenfalls ein Import von Object Storage System möglich, um die lokalen Daten ggf. zu erweitern.
 Der Export wird parallel mit allen Cloud Dienst Knoten durchgeführt. Dabei kann eine Liste aller Daten in einem Manifest gespeichert werden, um diese später nachzuverfolgen.
 Der größte Unterschied zur Migration beim Cloud Tiering ist, dass die Dateien in der Cloud nicht verschlüsselt werden, da sie auch für andere Nutzer verfügbar sein sollen und dass nach einem Transfer keine Verbindung (keine Updates bei späteren Änderungen) mehr zwischen lokalen und entfernten Files besteht \parencite[S. 109]{ibm.2017}.
+
+Konfiguration dieser beiden Funktionalitäten kann mit dem \lstinline|mmcloudgateway| Programm vorgenommen werden \parencite{ibmadmin.2017}.
 
 \subsection{Apache Hadoop - HDFS}
 
