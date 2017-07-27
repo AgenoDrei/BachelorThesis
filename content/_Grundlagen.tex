@@ -1,22 +1,22 @@
 \chapter{Stand der Technik}\label{ch:background}
 
-Zum Aufsetzen einer Hybrid Cloud Umgebung und dem Entwickeln einer auf dieser laufenden Anwendungen werden verschiedene Grundlagen benötigt. Grundwissen über die unterschiedlichen Speichertypen ist notwendig, um die Herausforderungen eines verteilten Speichersystems zu verstehen. Ebenfalls ist fundiertes Wissen über die Cloud, ihre Umsetzung und Typen wichtig, um in der Lage sein, effiziente Anwendungen für diese zu entwickeln.
+Zum Aufsetzen einer Hybrid Cloud-Umgebung und dem Entwickeln einer auf dieser laufenden Anwendungen werden verschiedene Grundlagen benötigt. Grundwissen über die unterschiedlichen Speichertypen ist notwendig, um die Herausforderungen eines verteilten Speichersystems zu verstehen. Ebenfalls ist fundiertes Wissen über die Cloud, ihre Umsetzung und Typen wichtig, um in der Lage sein, effiziente Anwendungen für diese zu entwickeln.
 
 In diesem Kapitel werden diese Hintergründe erläutert.
 
-\section{Speicher Lösungen} \label{sec:storage}
-Speicherung von Daten ist ein wichtiges Thema in der IT, wodurch unzählige Technologien entstanden sind. Hier werden erst Hardware Speicher beschrieben und danach verschiedene Arten, diesen innerhalb von Rechnernetzwerken zusammenzustellen.
+\section{Speicherlösungen} \label{sec:storage}
+Speicherung von Daten ist ein wichtiges Thema in der IT, wodurch unzählige Technologien entstanden sind. Hier werden erst Hardwarespeicher beschrieben und danach verschiedene Arten, diesen innerhalb von Rechnernetzwerken zusammenzustellen.
 
 \begin{figure}[hbt]
 	\centering
 	\includegraphics[scale=0.75]{images/storage-pyramide}
-	\caption{Speicher Pyramide \parencite{kaufmann.2016}}
+	\caption{Speicherpyramide \parencite{kaufmann.2016}}
 	\label{fig:storagepyramide}
 \end{figure}
 
-Prinzipiell kann Speicher immer in eine Art Hierarchie eingeteilt werden. Extrem häufige verwendete Daten landen auf der Ersten Ebene. Diese wird meistens in Form von Cache oder RAM bereitgestellt und bietet extrem kurze Latenz, aber nur geringen Speicherumfang.
+Prinzipiell kann Speicher immer in eine Art Hierarchie eingeteilt werden. Extrem häufig verwendete Daten landen auf der ersten Ebene. Diese wird meistens in Form von Cache oder RAM bereitgestellt und bietet extrem kurze Latenz, aber nur geringen Speicherumfang.
 
-Auf der nächsten Ebene stehen schnelle Speichermedien, zum Beispiel SSDs. Direkt darunter ordnen sich klassische Festplatten Speicher ein, die den Großteil des Speichervolumens zur Verfügung stellen. Sie haben höhere Latenzen sind aber dafür günstig und haben eine hohe Kapazität \parencite[Kap. 2, What is Computer Storage?]{kaufmann.2016}.
+Auf der nächsten Ebene stehen schnelle Speichermedien, zum Beispiel SSDs. Direkt darunter ordnen sich klassische Festplattenspeicher ein, die den Großteil des Speichervolumens zur Verfügung stellen. Sie haben höhere Latenzen, sind aber dafür günstig und haben eine hohe Kapazität \parencite[Kap. 2, What is Computer Storage?]{kaufmann.2016}.
 
 Mit der letzten Stufe ``Cloud Speicher'' wird sich intensiver in der \autoref{sec:cloud} auseinander gesetzt. \todo{Check Reference}
 
@@ -26,26 +26,26 @@ Mit der letzten Stufe ``Cloud Speicher'' wird sich intensiver in der \autoref{se
 
 \section{Dateisysteme} \label{sec:filesystems}
 
-Für Anwendungen und Nutzer organisiert ein Dateisystem eine abstrahierte Sicht auf sämtlichen Daten. Es stellt eine Schnittstelle zur Verfügung für Online-, Offline- und Programmzugriff. Ein Filesystem besteht aus einer Sammlung aller Dateien und einer Ordnerstruktur, die erstere organisiert und beschreibt. 
+Für Anwendungen und Nutzer organisiert ein Dateisystem eine abstrahierte Sicht auf sämtlichen Daten. Es stellt eine Schnittstelle für Online-, Offline- und Programmzugriff zur Verfügung. Ein Filesystem besteht aus einer Sammlung aller Dateien und einer Ordnerstruktur, die erstere organisiert und beschreibt. 
 
-Das Betriebssystem ordnet Speicherblöcke logischen Einheiten zu, so genannten \textbf{Files}. Die physikalischen Eigenschaften des Speichergerätes werden hiermit vor dem Nutzer verborgen. SSDs, HDDs, Online Speicher und sogar Cluster-Dateisysteme können hierdurch auf die gleiche Art betrachtet werden \parencite{silberschatz.2012}.
+Das Betriebssystem ordnet Speicherblöcke logischen Einheiten zu, so genannten \textbf{Files}. Die physikalischen Eigenschaften des Speichergerätes werden hiermit vor dem Nutzer verborgen. SSDs, HDDs, Onlinespeicher und sogar Cluster-Dateisysteme können hierdurch auf die gleiche Art betrachtet werden \parencite{silberschatz.2012}.
 
-Im Folgenden werden verschieden Clustersysteme, ihre Vor- und Nachteile untersucht. Dabei wird besonderer Wert auf die Kompatibilität mit Cloud Lösungen gelegt. Ebenfalls liegt ein stärker Fokus auf der Lösung von IBM, die Gründe hierfür werden im \autoref{ch:methods} näher erläutert.
+Im Folgenden werden verschiedene Clustersysteme mit ihre Vor- und Nachteile untersucht. Dabei wird besonderer Wert auf die Kompatibilität mit Cloud Lösungen gelegt. Ebenfalls liegt ein stärker Fokus auf der Lösung von IBM, die Gründe hierfür werden im \autoref{ch:methods} näher erläutert.
 
 \input{content/parallelstorage}
 
 \section{Cloud Computing}\label{sec:cloud}
 
-Cloud Computing kann als eine neue Art der Bereitstellung von Programmen, Diensten und Infrastruktur betrachtet werden, die häufig virtualisiert und automatisch skalierbar ist. Es ist die logische Weiterentwicklung von Netzwerk oder Internet Computing und hilft dabei vorhandene Ressourcen besser auszunutzen. 
+Cloud Computing kann als eine neue Art der Bereitstellung von Programmen, Diensten und Infrastruktur betrachtet werden, die häufig virtualisiert und automatisch skalierbar ist. Es ist die logische Weiterentwicklung von Netzwerk oder Internet Computing und hilft dabei, vorhandene Ressourcen besser auszunutzen. 
 Software, Laufzeiten und sogar Plattformen werden in einem verteilten Serverclusters angeboten. Diese können dann von jeder Art  Client Geräten (Personal Computer, Smartphones, \ac{IoT} Devices) angesprochen werden. Außer Anwendungen werden häufig  auch Speicher, bestimmte Dienste oder Entwicklungswerkzeuge über die Cloud angeboten \parencite[S. 3]{furth.2010}.
 
-Ein großer Vorteil von Cloud Umgebung ist die Dezentralisierung von Anwendungen. Statt für eine Applikation einen einzelnen Server zu nutzen, wird diese in einem Netz von diesen virtualisiert. Dieses Netz von Servern kann eine Vielzahl von Anwendungen provisonieren und bei Bedarf automatisch höhere Leistung zuordnen. Hierdurch werden Kosten gespart und eine bessere Verfügbarkeit garantiert \parencite[S. 7]{furth.2010}.
+Ein großer Vorteil von Cloudumgebungen ist die Dezentralisierung von Anwendungen. Statt für eine Applikation einen einzelnen Server zu nutzen, wird diese in einem Netz von diesen virtualisiert. Dieses Netz von Servern kann eine Vielzahl von Anwendungen provisonieren und bei Bedarf automatisch höhere Leistung zuordnen. Hierdurch werden Kosten gespart und eine bessere Verfügbarkeit garantiert \parencite[S. 7]{furth.2010}.
 
-Es gibt einige Schlüsseltechnologien die Cloud Computing erst ermöglichen. 
+Es gibt einige Schlüsseltechnologien, die Cloud Computing erst ermöglichen. 
 
 Zum einen ist Virtualisierung extrem wichtig, da Container und virtuelle Maschinen auf verschiedenen Servern gehostet werden können (Entkopplung von Anwendung, OS, Hardware und Nutzerdaten), um unterschiedliche Anwendungen für globale Zugriffspunkte bereitzustellen. 
-Sobald mehr Performance notwendig ist (mehr Zugriffe) können diesen mehr Serverleistung bekommen oder es werden weitere Instanzen auf zusätzlichen Rechnern erzeugt.
-Um diese effektiv umzusetzen besitzen Cloud Systeme einen Load Balancer oder Router, der automatisch Zugriffe auf die bereitstellenden Server verteilt und dafür sorgt, dass zum Beispiel Sitzungen aufrecht erhalten werden (Die Zugriffe eines Nutzer landen immer auf dem selben Server).
+Sobald mehr Performance notwendig ist (mehr Zugriffe), können diese mehr Serverleistung bekommen oder es werden weitere Instanzen auf zusätzlichen Rechnern erzeugt.
+Um diese effektiv umzusetzen, besitzen Cloudsysteme einen Load Balancer oder Router, der automatisch Zugriffe auf die bereitstellenden Server verteilt und dafür sorgt, dass zum Beispiel Sitzungen aufrecht erhalten werden (Die Zugriffe eines Nutzer landen immer auf demselben Server).
 Zur Loslösung von Speicher wird dieser gerne in separaten \acs{SAN} ausgelagert \parencite[S. 22]{rafaels.2015}.
 
 Wie in \autoref{fig:cloudarchtecture} zu sehen ist, besteht ein Cloud System aus vielen unterschiedlichen Komponenten, verteilt über eine Vielzahl von Servern, um Systemfunktionalitäten über ein \ac{WAN} verfügbar zu machen.   
@@ -53,7 +53,7 @@ Wie in \autoref{fig:cloudarchtecture} zu sehen ist, besteht ein Cloud System aus
 \begin{figure}[hbt]
 	\centering
 	\includegraphics[scale=0.75]{images/cloud-architecture}
-	\caption{Hauptkomponenten eines Cloud Systems anhand des Beispiels von Cloud Foundry  \parencite{cloudfoundry.2017}}
+	\caption{Hauptkomponenten eines Cloudsystems anhand des Beispiels von Cloud Foundry  \parencite{cloudfoundry.2017}}
 	\label{fig:cloudarchtecture}
 \end{figure}
 
