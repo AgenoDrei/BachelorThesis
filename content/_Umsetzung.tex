@@ -5,7 +5,16 @@ In diesem Kapitel wird die Umsetzung einer typischen Hybrid Cloud Anwendung betr
 Auf einem lokalen Rechner wird Spectrum Scale als Cluster-Speicher eingerichtet, was in diesem Aufbau den \gls{On Premise} Teil der Software darstellt.
 In der öffentlichen Cloud von IBM (Bluemix) wird eine über das Internet zugängliche Anwendung zur Verfügung gestellt, die Zugriff auf die Daten des Clusters gewährt. Als Schnittstelle zwischen dieser Webanwendung und Spectrum Scale wird der \ac{COS} verwendet. Scale kann hier seine lokalen Daten über Cloud Sharing exportieren und neue, vom Nutzer erstellte Daten, importieren.
 
-An dieser Stelle wird besonders Wert darauf gelegt, dass die beschrieben Schritte nachvollziehbar und nachbildbar dargestellt werden. Es wird also nicht nur ein Fokus auf die Ergebnisse gelegt, sondern auch auf die verwendeten Techniken.
+An dieser Stelle wird besonders Wert darauf gelegt, dass die beschrieben Schritte nachvollziehbar und nachbildbar dargestellt werden. Es wird also nicht nur ein Fokus auf die Ergebnisse gelegt, sondern auch auf die verwendeten Techniken und das allgemeine Vorgehen.
+
+\begin{figure}[hbt]
+	\centering
+	\includegraphics[scale=0.7]{images/demo-architecture-overview}
+	\caption{High-Level Design der Anwendung}
+	\label{fig:demoarchitectureoverview}
+\end{figure}
+
+Der beschrieben Aufbau wird in \autoref{fig:demoarchitectureoverview} noch einmal mit den verwendeten Technologien visualisiert. 
 
 \section{Aufsetzen einer Spectrum Scale Instanz in lokaler Umgebung}
 \input{content/scale}

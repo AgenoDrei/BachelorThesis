@@ -31,10 +31,12 @@ Der Nutzername wird bei S3 kompatiblen Schnittstellen normalerweise als \textit{
 mmcloudgateway account pre-test --cloud-type cleversafe-new --username "<username>" --pwd-file <path/file/your/secretAccessKey> --cloud-url <cos/endpoint>
 \end{lstlisting}
 
-Nach Ausführung wird eine Testverbindung aufgebaut, entstehen keine Fehlermeldungen kann nun der Account eingerichtet werden. Die Befehlssyntax benötigt an dieser Stelle aber noch weitere Informationen, die für deinen eigentlichen Test nicht notwendig waren:\\
+Nach Ausführung wird eine Testverbindung aufgebaut, entstehen keine Fehlermeldungen kann nun der Account eingerichtet werden. An dieser Stelle ist es extrem wichtig, dass die Option \lstinline|--enc-enable| auf \lstinline|FALSE| gesetzt wird. Ansonsten kann das beabsichtigte Cloud Sharing nicht umgesetzt werden, da beim Export eine Dateiverschlüsselung stattfindet. Diese macht das Lesen der Informationen von anderen Anwendungen (hier unsere Demoanwendung) unmöglich.
+
+Die Befehlssyntax benötigt an dieser Stelle aber noch weitere Informationen, die für deinen eigentlichen Test nicht notwendig waren:\\
 
 \begin{lstlisting}[language=bash, caption=Einrichtung des Cloud Sharing Accounts]
-mmcloudgateway account create --cloud-nodeclass TCTNodeClass --cloud-name mcstore --cloud-type cleversafe-new --username "<username>" --pwd-file <path/file/your/secretAccessKey> --enable TRUE --cloud-url <cos/endpoint>
+mmcloudgateway account create --cloud-nodeclass TCTNodeClass --cloud-name mcstore --cloud-type cleversafe-new --username "<username>" --pwd-file <path/file/your/secretAccessKey> --enable TRUE --cloud-url <cos/endpoint> --enc-enable FALSE
 \end{lstlisting}
 
 Nach erfolgreicher Ausführung des Befehls ist der Account fertig eingerichtet und man sollte folgende Ausgabe (\autoref{fig:saclestatus}) bei dem Überprüfen des Cloud Services sehen.
@@ -44,16 +46,17 @@ Um Informationen in den konfigurierten Cloud Account zu exportieren, muss zuerst
 
 Mit dem bereits bekannten \lstinline|mmcloudgateway| Befehl können nun einzelne oder mehrere Files zwischen \ac{COS} und der lokalen Maschine kopiert werden.
 
-Es besteht die Möglichkeit Metadaten beim Sharing zu erhalten und alle exportierten Files können in einem Manifest festgehalten werden, um später wieder importiert zu werden.
+Es besteht die Möglichkeit Metadaten beim Sharing zu erhalten und alle exportierten Files können in einem Manifest festgehalten werden. Dieses hilft beim späteren Import, da eine List alle exportierten Dateien vorliegt. 
 
 \begin{lstlisting}[language=bash, caption=Export von lokalen Dateien]
-mmcloudgateway files export
+mmcloudgateway files export <path/to/file> --manifest-file manifest.txt --export-metadata
 \end{lstlisting}
 
 \begin{lstlisting}[language=bash, caption=Import von COS Dateien]
-mmcloudgateway files import
+mmcloudgateway files import <fileKey> --import-metadata
 \end{lstlisting}
 
 Weitere Informationen hierzu befinden sich in \cite[S. 613]{ibmadmin.2017}.
 
-\todo{Aktualiserung nach Auflösung des Export Bugs}
+\textbf{Erweiterung der Spectrum Scale Funktionalität}\\
+\todo{Beschreibe einen Custom Applikationserver}

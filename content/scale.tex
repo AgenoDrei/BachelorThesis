@@ -71,7 +71,7 @@ Bei der Konfigurationsdatei für die VM (SpectrumScale423\_TrialVM\_TCT.xml) mus
 ...
 \end{lstlisting}
 
-Diese grundsätzliche Konfiguration nach individueller Anpassung kann wieder über diverse Bash Eingaben automatisiert werden: \\
+Diese grundsätzlicmhe Konfiguration nach individueller Anpassung kann wieder über diverse Bash Eingaben automatisiert werden: \\
 
 \begin{lstlisting}[language=bash, caption=Portierung des VM Abbilds]
 [root@host ~]# mkdir images && mv <your image files and xml configuration> images
@@ -82,7 +82,6 @@ Diese grundsätzliche Konfiguration nach individueller Anpassung kann wieder üb
 
 [root@host ~]# virt-manager
 \end{lstlisting}
-\todo{XML Files in den Anhang}
 
 Die VM ist nun nach dem ersten Start vollständig aufgesetzt und die Administrationsoberfläche über die IP 192.168.56.101 zugänglich.
 
@@ -97,5 +96,8 @@ Im Laufe von dieser müssen eventuell der Cloud Service manuell gestoppt werden,
 Nach erfolgreichen Update kann nun die Cloud Funktionalität konfiguriert werden.
 
 \textbf{Installation Transparent Cloud Tiering}\\
-\todo{Nachfragen, ob manuelles Aufsetzen von der TrialVM disskutiert werden soll}
+
+Eine ausführliche Anleitung zum Installieren von Cloud Tiering Knoten auf einer einfachen Installation von Spectrum Scale ist in dieser Quelle beschrieben: \cite{mani.2017}.
+
+In diesem Anwendungsfall ist die Installation nicht notwendig. Auf den eingerichteten VM-Abbildern ist der Clouddienst bereits funktionsfähig.
 
