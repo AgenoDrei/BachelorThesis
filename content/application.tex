@@ -155,4 +155,130 @@ EJS ist hierbei ein Vorlagensprache, die Inline-Javascript ermöglicht und die E
 Alle anderen Controller dienen zum Definieren der REST-Schnittstelle der Anwendung (zum Beispiel der \lstinline|cosCtrl|). Im letzten Teil der \textit{app.js} wird der HTTP-Server gestartet und aus den Bluemix-Umgebungsvariabeln der Port ausgelesen. Lokal wird hierbei einfach ein freier verwendet.\\
 
 \textbf{Erzeugung eine REST-Schnittstellen Funktion}\\
+An dieser Stelle betrachten wir die Implementierung der REST-Schnittstelle zum Löschen von Dokumenten in der \ac{COS}-Dateispeichersystem. Dieses kann als exemplarisch betrachtet werden, da nach den gleichen Entwicklungsmuster auch alle anderen API-Funktionen der Anwendung umgesetzt wurden. 
+
+An erster Stelle muss der Controller erstellt werden, hierfür wird die Router Middleware von express verwendet. Mithilfe von dieser können logisch zusammenhängende URL-Routen innerhalb einzelner Module gegliedert werden. Das Löschen von Objekten wird hier in den \lstinline|CosCtrl| eingeordnet, der sämtliche direkte Interaktionen mit dem Dateispeicher verwaltet:\\
+
+\begin{lstlisting}[language=JavaScript, caption=CosCtrl.js mit einer Route zur Dateilöschung]
+const express = require('express');
+const router = express.Router();
+
+module.exports = function(cosService) {
+
+	router.delete('/files/:id*', function(req, res) {
+		let id = req.params.id + req.params[0];
+
+		cosService.removeFile(id).done(function(data) {
+			let response = {msg: 'File delete successfull', delete: data};
+			res.json(response);
+		},
+		function(err) {
+			res.status(500).send(err);
+		});
+	});
+
+	return router;
+}
+\end{lstlisting}
+
+In den ersten beiden Zeilen wird der hier verwendete Router importiert. Zeile 3 definiert die Initalisierungsfunktion des Moduls, indem auch der hier verwendete \lstinline|cosService| übergeben wird.
+
+Der nächste Block definiert nun die eigentliche Route: Diese verarbeitet nur DELETE HTTP Anfragen, die auf eine spezielle Route gemappt werden. Sofern die Basis-URL übereinstimmt, wird jeder Dateischlüssel (\lstinline|:id*|) angenommen. Der Schlüssel wird als nächstes ausgelesen und die entsprechende Servicefunktion übergeben. Deren Funktionsweise wird nach diesem Controller erklärt.
+
+Da \gls{Promise}s Verwendung finden, kann eine der beiden definierten Funktionen, abhängig vom Ergebnis des Nutzerdienstes, aufgerufen werden. Die erste erzeugt eine Antwort für den Klienten und übergibt die Bestätigung von \ac{COS}. Im Fehlerfall wird ein HTTP Errorcode und der entstandene Fehler zurückgesendet.
+
+Um das Modul nutzbar zu machen, muss jetzt nur noch der Service definiert werden:\\
+
+\begin{lstlisting}[language=JavaScript, caption=CosService.js für die Kommunikation mit IBM COS]
+const Promise = require('promise');
+const aws = require('aws-sdk');
+
+module.exports = function(config) {
+	this.config = config;
+	aws.config.loadFromPath(__dirname + '/../config/aws.json');
+	this.ep = new aws.Endpoint(config.cos.endpoint);
+	this.s3 = new aws.S3({ endpoint: this.ep });
+	this.bucket = config.cos.bucket;
+	
+	this.removeFile = function(key) {
+		return new Promise(function(fulfill, reject) {
+			let params = {Bucket: this.bucket, Key: key};
+			this.s3.deleteObject(params, function(err, data) {
+				if(err) {
+					reject(err);
+				} else {
+					fulfill(data);
+				}
+			});
+		});
+	};
+	return this;
+}
+\end{lstlisting}
+
+Zu Beginn werden wieder notwendige externe Module importiert und die Initialisierungsfunktion definiert. Informationen über Authentifizierung für \ac{COS} werden in der \lstinline|config| zentral von der Hauptdatei, welche aus dem globalen Konfigurationsfile \lstinline|config/config.js| liest, übergeben.
+
+Mithilfe dieser wird der \ac{S3}-Klient und der richtige Bucket für die Anwendung erzeugt. 
+
+In der eigentlich Funktion wird ein Promise-Wrapper erzeugt zum Ansprechen der relevante S3-API. Das Ergebnis wird über die Promise-Funktionen zurückgegeben.
+
+Als letztes müssen nun nur noch der Service in der \lstinline|app.js| erstellt werden und an den Router übergeben. Danach kann der gestartete Server mit der neuen REST-URL angesprochen werden:\\
+
+\begin{lstlisting}[language=JavaScript, caption=Einbindung der neuen Route in der app.js]
+const cosService = require('./services/cosService')(config);
+app.use('/api/v1', require('./controller/cosCtrl')(cosService));
+\end{lstlisting}
+
 \textbf{Erzeugung einer Frontend-Seite mit Backend Anbindung über AJAX}\\
+Für die graphische Repräsentation existiert ebenfalls ein Arbeitsablauf: Zuerst muss eine EJS-Vorlage erstellt werden. Bei dieser handelt es ich, um eine erweiterte HTML-Datei. Es können, ähnlich wie bei PHP, andere Dateien (hier ein Header) eingebunden und die Sprache mit dynamischen Variablen erweitert werden.
+
+Die neue Route muss im \lstinline|ViewCtrl| des Backends festgelegt werden:\\
+
+\begin{lstlisting}[language=JavaScript, caption=Definition einer neuen Frontendroute in der viewCtrl.js]
+router.get('/file/', function (req, res) {
+	res.render('fileUpload');
+});
+\end{lstlisting}
+
+An dieser Stelle kann man sehen, wie beim Ansprechen der URL eine neue HTML-Seite aus dem EJS-Template mit der \lstinline|render|-Funktion von express generiert wird.
+
+Für jede Seite im Frontend gibt es eine eigenen CSS-Style, eine Initialisierungsdatei und einen Controller, der Veränderungen vornimmt. Diese Dateien werden statisch aus dem \lstinline|public/|-Verzeichnis ausgeliefert.
+
+Das Erstellen der Dateihochladungsseite wird hier als Beispiel untersucht und einige Codebeispiele betrachtet: \\
+
+\begin{lstlisting}[language=JavaScript, caption=Initalisierungsfunktion der Uploadseite in der fileUpload.js]
+let ctrl = null;
+let main = function() {
+	ctrl = new FileUploadCtrl();
+};
+
+let submitFile = function() {
+	...
+};
+
+$( document ).ready(main);
+\end{lstlisting}
+
+Nachdem das Dokument geladen wurde wird zuerst die \lstinline|main|-Funktion ausgeführt und der Controller für die Seite erstellt. Die hier angedeutete \lstinline|submitFile|-Routine sendet einen POST-Request zum Server mit der angehängten Datei. Beim Erfolg der Routine gibt der \lstinline|FileUploadCtrl| eine positives Feedback im Frontend:\\
+
+\begin{lstlisting}[language=JavaScript, caption=Initalisierungsfunktion der Uploadseite in der fileUpload.js]
+class FileUploadCtrl {
+	constructor() {
+		$("#tabs>li.active").removeClass("active");
+		$("#fileUploadTab").addClass("active");
+		$("#reload-btn").hide();
+	}
+
+	uploadSuccess(result) {
+		toastr.success('File upload successfull');
+	}
+
+	uploadError(error) {
+		toastr.error('File upload failed');
+	}
+}        
+\end{lstlisting}
+
+Hier wird ein Toast erzeugt für den Erfolgs- oder Fehlerfall. Bei Erzeugung des Controllers wird die Navigation aktualisiert und der Tab auf aktiv gesetzt.
+
+Bei anderen Seiten werden auch Services verwendet, die aber ungefähr den selben Aufbau, wie im Backend besitzen und hier nicht genauer erwähnt werden müssen. Sie stellen nur eine weitere Schicht, um die JQuery \gls{AJAX}-Schnittstelle dar.
