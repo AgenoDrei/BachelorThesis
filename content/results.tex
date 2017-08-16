@@ -1,0 +1,10 @@
+Ergebnis der experimentellen Hybrid-Cloud Aufstellung ist ein speziell konfigurierter Spectrum Scale Speichercluster mit Anbindungen an den \ac{COS} und eine neu entwickeltet Cloudanwendung mit Verbindung zu dem Objektspeicher und einem exemplarischen Analysedienst für Imagedateien.
+Das aktuelle Setup ist ein VM-Abbild, das auch auf einer einzelnen Maschinen für Demozwecke verwendet werden kann.
+
+Der Austausch von Daten zwischen Cluster und Cloud finden problemlos statt. Es muss nur darauf geachtet werden, dass keine Verschlüsselung beim Sharing stattfindet.
+
+Einzige Schwierigkeit ist die Aktualisierung der Dateiliste auf der Seite von Spectrum Scale, da keine Funktion hierfür vorgesehen ist. Zur Lösung dieses Problems funktioniert dieser Ansatz. \todo{Manifestlösung beschreiben}.
+
+Die Demo stellt eine graphische Schnittstelle zum Speichern, Ansehen und Analysieren von Bilddateien und ist über IBM Bluemix erreichbar. Sie wird von einem express Server präsentiert, der ebenfalls eine einfache REST-API zum verwenden der oben beschriebenen Funktionen bereitstellt. Für die Bildanalyse wird IBM Watson Image Recognition verwendet, ein Dienst der mithilfe von Deep Learning Bilder klassifizieren kann.
+
+Insgesamt funktioniert der Aufbau sehr gut und eine hohe Performanz wird bei einzelnen Anfragen geliefert, sodass sich das Szenario ausgezeichnet für Demozwecke verwendet werden kann.
