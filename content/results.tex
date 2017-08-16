@@ -3,7 +3,7 @@ Das aktuelle Setup ist ein VM-Abbild, das auch auf einer einzelnen Maschinen fü
 
 Der Austausch von Daten zwischen Cluster und Cloud finden problemlos statt. Es muss nur darauf geachtet werden, dass keine Verschlüsselung beim Sharing stattfindet.
 
-Einzige Schwierigkeit ist die Aktualisierung der Dateiliste auf der Seite von Spectrum Scale, da keine Funktion hierfür vorgesehen ist. Zur Lösung dieses Problems funktioniert dieser Ansatz. \todo{Manifestlösung beschreiben}.
+Einzige Schwierigkeit ist die Aktualisierung der Dateiliste auf der Seite von Spectrum Scale, da keine Funktion hierfür vorgesehen ist. Zur Lösung dieses Problems wird eine, alle vom Cluster exportieren Dateien enthaltende, Manifestdatei von Scale angelegt und in den Cloudspeicher hochgeladen. Die Demoanwendung kann nun diese Liste selber aktualisieren. Beim Importieren beginnt Scale mit dieser Manifestdatei und kann, anhand von ihr, alle anderen neuen Dateien herunterladen.
 
 Die Demo stellt eine graphische Schnittstelle zum Speichern, Ansehen und Analysieren von Bilddateien und ist über IBM Bluemix erreichbar. Sie wird von einem express Server präsentiert, der ebenfalls eine einfache REST-API zum verwenden der oben beschriebenen Funktionen bereitstellt. Für die Bildanalyse wird IBM Watson Image Recognition verwendet, ein Dienst der mithilfe von Deep Learning Bilder klassifizieren kann.
 

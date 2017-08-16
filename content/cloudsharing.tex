@@ -59,4 +59,10 @@ mmcloudgateway files import <fileKey> --import-metadata
 Weitere Informationen hierzu befinden sich in \cite[S. 613]{ibmadmin.2017}.
 
 \textbf{Erweiterung der Spectrum Scale Funktionalität}\\
-\todo{Beschreibe einen Custom Applikationserver}
+Da Spectrum Scale keinerlei Kontrolle über die geteilten Daten hat, wird es auch nicht über mögliche neue Dateien informiert. Diese können also nativ nicht wieder importiert werden, da keine Informationen vorliegen.
+
+Um dies zu umgehen, gibt es zwei Möglichkeiten: Es kann ein kleiner Webserver auf einem Spectrum Scale Knoten aufgesetzt werden, der von außen über Änderungen informiert wird und diese dann in das Manifest schreibt. Nachteil an dieser Lösung ist, dass zusätzliche Software für Scale entwicklet werden muss und diese auch immer nur auf einem Knoten läuft, was zu Leistungsengpässen führen kann.
+
+Alternativ kann die Manifest Datei auch mit in den Cloudspeicher hochgeladen werden. Von hier kann eine Aktualisierung durch die Cloudanwendung (\autoref{sec:application}) geschehen, jedes Mal wenn neue Daten hinzugefügt werden. Spectrum Scale kann nun immer als erstes die Manifest Datei wieder importieren und bekommt mit dieser dann Information über die Dateiveränderung.
+
+Offensichtlich ist zweite Lösung besser, da keine Veränderung am Cluster vorgenommen werden muss.
