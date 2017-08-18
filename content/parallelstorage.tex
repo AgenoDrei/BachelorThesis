@@ -1,6 +1,6 @@
 \subsection{IBM Spectrum Scale - GPFS}
 
-Bei IBM Spectrum Scale, ehemalig \ac{GPFS}, handelt es sich um ein System, dass den gleichzeitigen Zugriff auf ein oder mehrere Dateisysteme von verschiedenen Knoten ermöglicht. Diesen können mithilfe von unterschiedlichsten Techniken den Zugriff zur Verfügung stellen (SAN, NAS, DAS) und ermöglichen das Aufsetzen von einem hochperformanten skalierbaren Netzwerk \parencite[S. 1]{ibm.2017}.
+Bei IBM Spectrum Scale, ehemalig \ac{GPFS}, handelt es sich um ein System, dass den gleichzeitigen Zugriff auf ein oder mehrere Dateisysteme von verschiedenen Knoten ermöglicht. Diesen können mithilfe von unterschiedlichsten Techniken den Zugriff zur Verfügung stellen (\ac{SAN}, \ac{NAS}, \ac{DAS}) und ermöglichen das Aufsetzen von einem hochperformanten skalierbaren Netzwerk \parencite[S. 1]{ibm.2017}.
 
 Neben einfachen Datenzugriff werden ein Vielzahl von zusätzlichen Features geboten: Datei Duplizierung, Regel basiertes Speicher Management, Kommunikation und Zusammenschluss verschiedener Rechenzentren und diverse andere. Auf diese wird hier aber nur sehr grob eingegangen, da sie größtenteils unrelevant für die Arbeit sind und deren Umfang übersteigen würden.
 
@@ -43,7 +43,7 @@ Beim Cloud Sharing ermöglicht das Teilen von lokalen Daten mit verschiedenen Ar
 Der Export wird parallel mit allen Clouddienstknoten durchgeführt. Dabei kann eine Liste aller Daten in einem Manifest gespeichert werden, um diese später nachzuverfolgen.
 Der größte Unterschied zur Migration beim Cloud Tiering ist, dass die Dateien in der Cloud nicht verschlüsselt werden, da sie auch für andere Nutzer verfügbar sein sollen und dass nach einem Transfer keine Verbindung (keine Updates bei späteren Änderungen) mehr zwischen lokalen und entfernten Files besteht \parencite[S. 109]{ibm.2017}.
 
-Konfiguration dieser beiden Funktionalitäten kann mit dem \lstinline|mmcloudgateway| Programm vorgenommen werden \parencite{ibmadmin.2017}.
+Konfiguration dieser beiden Funktionalitäten kann mit dem \lstinline|mmcloudgateway| Programm vorgenommen werden \parencite{scale.2017}.
 
 \subsection{Apache Hadoop - HDFS}
 

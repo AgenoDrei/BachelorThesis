@@ -1,6 +1,6 @@
 \chapter{Umsetzung und Ergebnisse}\label{ch:realization}
 
-In diesem Kapitel wird die Umsetzung einer typischen Hybrid Cloud Anwendung betrachtet. 
+In diesem Kapitel wird die Umsetzung einer typischen Hybrid Cloudanwendung betrachtet. 
 
 Auf einem lokalen Rechner wird Spectrum Scale als Cluster-Speicher eingerichtet, was in diesem Aufbau den \gls{On Premise} Teil der Software darstellt.
 In der öffentlichen Cloud von IBM (Bluemix) wird eine über das Internet zugängliche Anwendung zur Verfügung gestellt, die Zugriff auf die Daten des Clusters gewährt. Als Schnittstelle zwischen dieser Webanwendung und Spectrum Scale wird der \ac{COS} verwendet. Scale kann hier seine lokalen Daten über Cloud Sharing exportieren und neue, vom Nutzer erstellte Daten, importieren.
@@ -16,10 +16,10 @@ An dieser Stelle wird besonders Wert darauf gelegt, dass die beschrieben Schritt
 
 Der beschrieben Aufbau wird in \autoref{fig:demoarchitectureoverview} noch einmal mit den verwendeten Technologien visualisiert. 
 
-\section{Aufsetzen einer Spectrum Scale Instanz in lokaler Umgebung}
+\section{Aufsetzen einer Spectrum Scale-Instanz in lokaler Umgebung}
 \input{content/scale}
 
-\section{Umsetzung des Cloud Tierings \& Implementierung der Hybrid Cloud Lösung}
+\section{Umsetzung des Cloud Tierings \& Implementierung der Hybrid Cloud-Lösung}
 \input{content/cloudsharing}
 
 \section{Entwicklung der Bluemix Demoanwendung}\label{sec:application}

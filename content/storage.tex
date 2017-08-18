@@ -1,6 +1,6 @@
 \subsection{Hardware}
 
-Unabhängig von der Zusammenstellung umfänglicher Speicherlösungen, müssen die Daten trotzdem irgendwann auf einen Hardwarespeicher geschrieben werden. Folgender Abschnitt erläutert, die allgemeine Funktion und geht auf einige der häufigsten verwendeten Typen ein.
+Unabhängig von der Zusammenstellung umfänglicher Speicherlösungen, müssen die Daten trotzdem irgendwann auf einen Hardwarespeicher geschrieben werden. Deswegen ist es notwendig die Grundlagen zu kennen, um die Herausforderungen komplizierter Lösungen zu verstehen. Folgender Abschnitt erläutert, die allgemeine Funktion und geht auf einige der häufigsten verwendeten Typen ein.
 
 \subsubsection{Hard Disk Drive (HDD)}
 
@@ -16,7 +16,7 @@ Festplatten sind gut erforscht, es treten extrem selten unbekannte Probleme auf 
 
 \subsubsection{Solid State Drive (SSD)}
 
-Im Jahr 2007 wurde der erste SSD-Speicher vermarktet und stach durch extrem hohe Zugriffszahlen heraus. Diese waren bei 4000 \gls{IOPS} bereits um das zehnfache höher als die klassischer Festplatten. Heutzutage ist es möglich IOPS Zahlen im Millionenbereich zu erreichen, was eine Revolution für Speicher bedeutet \parencite[Kap. 3]{kaufmann.2016}.
+Im Jahr 2007 wurde der erste \acs{SSD}-Speicher vermarktet und stach durch extrem hohe Zugriffszahlen heraus. Diese waren bei 4000 \gls{IOPS} bereits um das zehnfache höher als die klassischer Festplatten. Heutzutage ist es möglich IOPS Zahlen im Millionenbereich zu erreichen, was eine Revolution für Speicher bedeutet \parencite[Kap. 3]{kaufmann.2016}.
 
 \begin{figure}[hbt]
 	\centering
@@ -25,7 +25,7 @@ Im Jahr 2007 wurde der erste SSD-Speicher vermarktet und stach durch extrem hohe
 	\label{fig:flash}
 \end{figure}
 
-SSDs benutzen Nicht-Und (NAND) memory chips zum Speichern einzelner Bitinformationen. Von diesen Zellen gibt es dann einige Millionen, die beliebig adressiert werden können (Random Access Memory). Innerhalb eines so genannten Floating Gate können nun Elektronen eingefangen werden, um eine binäre Eins zu repräsentieren. Im Ausgangszustand sind diese ``Fallen'' leer, um einen Nullinformationen zu speichern. Sobald der Speichercontroller eine Zelle laden will, wird der Einlasstransistor geöffnet und einige Elektronen in der Zelle für eine beliebig lange Zeit gefangen.
+\acsp{SSD} benutzen Nicht-Und (NAND) memory chips zum Speichern einzelner Bitinformationen. Von diesen Zellen gibt es dann einige Millionen, die beliebig adressiert werden können (Random Access Memory). Innerhalb eines so genannten Floating Gate können nun Elektronen eingefangen werden, um eine binäre Eins zu repräsentieren. Im Ausgangszustand sind diese ``Fallen'' leer, um einen Nullinformationen zu speichern. Sobald der Speichercontroller eine Zelle laden will, wird der Einlasstransistor geöffnet und einige Elektronen in der Zelle für eine beliebig lange Zeit gefangen.
 
 Dieser Prozess findet in \autoref{fig:flash} statt, wenn auf der Bit- und Wordline eine positive Ladung gesetzt wird. Meistens liegen mehrere Zellen auf einer Reihe, was den Leseprozess verkomplizieren kann. Es wird eine niedrige Spannung an alle Wordlines angelegt, wodurch bei geladenen Zellen eine Konduktivität festgestellt werden kann. 
 
