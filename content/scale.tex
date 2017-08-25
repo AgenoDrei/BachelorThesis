@@ -1,4 +1,4 @@
-Obwohl Spectrum Scale eigentlich dafür vorgesehen ist, auf verschiedenen Systemen installiert zu werden, ist es möglich ein minimales Setup mit zwei oder auch nur einer Maschine zu ermöglichen. Speziell für letzteren Fall gibt es ein, von IBM zur Verfügung gestelltes, Demoabbild.
+Obwohl Spectrum Scale eigentlich dafür vorgesehen ist, auf multiplen Systemen installiert zu werden, ist es möglich ein minimales Setup mit zwei oder auch nur einer Maschine zu ermöglichen. Speziell für letzteren Fall gibt es ein von IBM zur Verfügung gestelltes Demoabbild.
 
 Dies ist für ein Produktivsystem absolut nicht zu empfehlen, da aufgrund der verteilten Architektur von Scale ein hoher Leistungsmehraufwand auf einem einzelnen Rechner entsteht und kein Gewinn aus parallelem Dateizugriff gezogen werden kann.
 
@@ -8,8 +8,8 @@ Für diese Arbeit wird ein vorbereitetes Abbild verwendet, das bereits eine ält
 Im ersten Schritt muss auf dem zu verwendenden Rechner eine Virtualisierungslösung installiert werden. Es wurde sich hierbei für \ac{KVM} im Zusammenspiel mit \ac{QEMU} entschieden, da diese kostenlos verwendbar und in Linux integriert sind. 
 
 Bei QEMU handelt es sich um einen Open Source virtuelle Maschinen Emulator und Virtualisierer mit nur geringem Leistungsverlust für das Gastsystem. Volle Virtualisierung durch direktes Ausführen der Gastbefehle auf der Gastgeber CPU kann aber nur in Zusammenarbeit mit einem Xen Hypervisor oder mit dem KVM Kernel Modul auf Linux Systemen erreicht werden \parencite{qemu.2017}. 
-KVM ermöglicht Virtualisierung mithilfe von Intel/Amd CPUs der x86 Bauart, die so genannte virtuelle Erweiterungen zur Verfügung stellen. Es besteht aus einem ladbaren Kernel Modul, dass eine grundsätzliche Infrastruktur für genannte Aufgaben zur Verfügung stellt \parencite{kvm.2017}.
-Zusätzlich wird das Tool \textit{Virtual Manager} verwendet, dass eine grafische Oberfläche für die \acs{VM}s zur Verfügung stellt.
+KVM ermöglicht Virtualisierung mithilfe von Intel/Amd CPUs der x86 Bauart, die so genannte virtuelle Erweiterungen zur Verfügung stellen. Es besteht aus einem ladbaren Kernel Modul, das eine grundsätzliche Infrastruktur für genannte Aufgaben zur Verfügung stellt \parencite{kvm.2017}.
+Zusätzlich wird das Tool \textit{Virtual Manager} verwendet, das eine grafische Oberfläche für die \acs{VM}s zur Verfügung stellt.
 
 Die komplette relevante Software ist über gebräuchliche Paketverwaltungssysteme verfügbar (Advanced Packaging Tool, Red Hat Package Manager). Eine beispielhafte Installation für Red Hat Linux, laufend auf einer x86 Intel CPU, kann so aussehen (Ein laufendes System mit installiertem X Server wird vorausgesetzt):\\ 
 
@@ -28,10 +28,10 @@ kvm                   525409  1 kvm_intel
 \end{lstlisting} 
 
 Im obigen Beispiel wird zuerst überprüft, ob das System Hardware Virtualisierung unterstützt. Falls diese nicht vorhanden ist, kann KVM nicht verwendet werden, was zu einer massiven Verschlechterung der Leistung der VM führt.
-Im nächsten Schritt wird zuerst die Paketliste aktualisiert, dann die notwendige Software installiert und ihr Service gestartet. Als letztes überprüft man, ob das KVM Module richtig geladen wurde, der Ouput zeigt das geladene Modul für Intel CPUs.
+Im nächsten Schritt wird zuerst die Paketliste aktualisiert, dann die notwendige Software installiert und ihr Service gestartet. Als letztes überprüft man, ob das KVM Module richtig geladen wurde, der Output zeigt das geladene Modul für Intel CPUs.
 
 \textbf{Installation des Spectrum Scale Probeabbilds}\\
-Das Probeabbild ist zum leichteren Umgang in vier einzelnen .img Abbilder aufgeteilt worden. Zusätzlich hierzu, gibt es drei XML Dateien, die zur Konfiguration der VM und der Einrichtung von notwendigen privaten Netzwerken dienen.
+Das Probeabbild ist zum leichteren Umgang in vier einzelne .img Abbilder aufgeteilt worden. Zusätzlich hierzu gibt es drei XML Dateien, die zur Konfiguration der VM und der Einrichtung von notwendigen privaten Netzwerken dienen.
 
 Das erste virtuelle Netzwerk reicht von 10.0.2.1 zu 10.0.2.254 und wird für die Kommunikation des \acs{NSD} Servers und des Daemon von Spectrum Scale benutzt. Das zweite (192.168.56.1 bis 192.168.56.254) wird verwendet, um das Administrations UI über das Web erreichbar zu machen.
 

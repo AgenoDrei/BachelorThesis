@@ -6,7 +6,7 @@ Dieser Teil der Beschreibung umfasst das Entwickeln der Cloudanwendung, Aufsetze
 \end{center}
 
 \subsection{Architektur der Anwendung}
-An dieser Stelle werden die wichtigsten Teil der Anwendung untersucht, visualisiert und in ein Verhältnis zueinander gestellt. Dafür werden Kontext-, Operations- und Klassendiagramme zur Verfügung gezeigt und erläutert.
+An dieser Stelle werden die wichtigsten Teile der Anwendung untersucht, visualisiert und in ein Verhältnis zueinander gestellt. Dafür werden Kontext-, Operations- und Klassendiagramme zur Verfügung gezeigt und erläutert.
 
 Die auf Bluemix laufende Anwendung besteht aus mehreren Komponenten für Frontend und Backend. Auf der einen Seite gibt es einen auf Node.js basierenden Anwendungsserver, der die eigentliche Logik der Anwendung kapselt und mithilfe einer \gls{REST}-Schnittstelle verschiedene Dienste bereitstellt.
 
@@ -31,7 +31,7 @@ Beim Scheitern der Anfrage wird eine entsprechende Fehlermeldung an den Browser 
 \end{figure}
 
 Ein Spezialfall stellt hierbei die Bildanalyse durch den Watsondienst dar (\autoref{fig:demosequenzdiagramwatson}). Das ausgewählte Bild muss erst akquiriert werden und wird dann zum Visual Recognition-Server hochgeladen. Nachdem dieser entsprechende Metadaten für die Bilddatei erzeugt hat, werden sie ebenfalls im Cloudspeicher abgelegt und eine Bestätigung an den Nutzer gesendet.
-Diese kann einige, ausgewählte Erkenntnisse über die Datei enthalten.
+Diese kann einige ausgewählte Erkenntnisse über die Datei enthalten.
 
 \begin{figure}[hbt]
 	\centering
@@ -63,7 +63,7 @@ In der Implementierungsbeschreibung wird das Aufsetzen einer typischen Ablaufseq
 \textbf{Frontend}\\
 Wie oben beschrieben, existieren ebenfalls einige Dateien für das Frontend. Sie sorgen dafür, dass eine dynamische, anpassungsfähige und ästhetische Benutzung des Interface möglich ist.
 
-Dies setzt natürlich auch eine gewisse Architektur voraus, damit eine leichte Erweiterung möglich ist. Somit liegt im Frontend folgende Ordnerstruktur vor:
+Dies setzt natürlich auch eine gewisse Architektur voraus, die eine leichte Erweiterbarkeit ermöglicht. Somit liegt im Frontend folgende Ordnerstruktur vor:
 
 \begin{itemize}
 	\item \textbf{views/}: Die HTML-Vorlagen für die einzelnen Seiten der Anwendung
@@ -98,13 +98,15 @@ Bevor die Implementierung gestartet werden kann, sollten einige Grundvoraussetzu
 	\item \gls{Git}
 \end{itemize}
 
-Um diese Voraussetzungen zu erreichen, existiert eine umfangreiche Dokumentation in folgender Quelle: \cite[S. 129]{Rios.2017}. An dieser Stelle wird nur grob auf das Setup eingegangen und mehr auf die eigentliche Implementierung fokussiert.
+Um diese Voraussetzungen zu erreichen, existiert eine umfangreiche Dokumentation in folgender Quelle: \cite[S. 129]{Rios.2017}.
+
+An dieser Stelle wird nur grob auf das Setup eingegangen und mehr auf die eigentliche Implementierung fokussiert.
 
 Nach erfolgreichen Anlegen der Benutzeraccounts und Installation der lokalen Tools, kann die Cloud Foundry-Anwendung angelegt werden. Hierzu muss zuerst die Anmeldung auf Bluemix erfolgen und die Navigation auf das Dashboard. Hier können neue Applikationen erzeugt werden. In unserem Anwendungsfall wird die Node.js Laufzeit Umgebung erzeugt, es muss nur ein eindeutiger Name für die App und die URL-Route ausgewählt werden.
 
-Innerhalb weniger Momente sollte eine einfach Basisanwendung erreichbar sein. Um den Quellcode bearbeiten zu können, kann dieser Entweder mit dem Bluemix Kommandozeilen Tool heruntergeladen oder ein Git-Verzeichnis erzeugt werden. Zweites ist wesentlich mächtiger, da sowohl eine vollständige Versionsverwaltung wie auch eine \ac{CD}-Pipeline zur Verfügung steht. Um sie zu erzeugen, muss im Dashboard die neue Anwendung ausgewählt und eine neue Toolchain erstellt werden. Es steht nun eine GitLab Umgebung und eine Standard konfigurierte Pipleine zur Verfügung.
+Innerhalb weniger Momente sollte eine einfache Basisanwendung erreichbar sein. Um den Quellcode bearbeiten zu können, kann dieser entweder mit dem Bluemix Kommandozeilen Tool heruntergeladen oder ein Git-Verzeichnis erzeugt werden. Zweites ist wesentlich mächtiger, da sowohl eine vollständige Versionsverwaltung wie auch eine \ac{CD}-Pipeline zur Verfügung steht. Um sie zu erzeugen, muss im Dashboard die neue Anwendung ausgewählt und eine neue Toolchain erstellt werden. Es steht nun eine GitLab Umgebung und eine Standard konfigurierte Pipeline zur Verfügung.
 
-Durch die normalen Einstellung der Toolchain werden automatisch Git-Commits auf den \textit{master}-Zweig auf Bluemix deployed. Wenn ein Projekt mehreren Beitragenden hat, sollte dieses Verhalten verändert werden.
+Durch die normale Einstellung der Toolchain werden automatisch Git-Commits auf den \textit{master}-Zweig auf Bluemix deployed. Wenn ein Projekt mehreren Beitragenden hat, sollte dieses Verhalten verändert werden.
 
 Mithilfe von \gls{Git} kann nun der Starter-Code heruntergeladen und für diesen Nutzungsfall angepasst werden.
 
@@ -116,7 +118,7 @@ npm install aws-sdk body-parser bootstrap cfenv ejs express filesize jquery mome
 
 Die Anwendung lässt sich lokal zum Testen mit \lstinline|npm start| oder \lstinline|node app.js| starten.
  
-Danach kann die \textit{app.js} angepasst werden, um den Grundstein für erste Routen und Seiten zu legen. An dieser Stelle wird eine gekürzte Version gezeigt, die nur den generellen Aufbau beleuchten sol.
+Danach kann die \textit{app.js} angepasst werden, um den Grundstein für erste Routen und Seiten zu legen. An dieser Stelle wird eine gekürzte Version gezeigt, die nur den generellen Aufbau beleuchten soll.
 
 \begin{lstlisting}[language=JavaScript, caption=Anpassung der Hauptdatei der Anwendung]
 // DEPENDENCIES
@@ -148,10 +150,10 @@ app.listen(cfenv.getAppEnv().port, '0.0.0.0', function() { ... });
 
 Im ersten Teil werden alle Abhängigkeiten der Anwendung geladen. Dies ist wichtig, damit keine mehrfache Initialisierung von bestimmten Modulen in der Anwendung stattfindet. Im nächsten Teil wird express mit verschiedener Middleware kombiniert und die statischen Ordner für Dateiauslieferung definiert. Für diese agiert express dann wie ein klassischer Dateiserver.
 Im nächsten Schritt werden alle vom Nutzer definierten Dienste erstellt. Diese können dann im nächsten Abschnitt an die Controller weitergereicht werden, sofern Bedarf besteht.
-Es gibt genau einen \lstinline|viewCtrl|, der zur Auslieferung der HTML-Vorlagen verwendet wird. Für jede neue Seite der \ac{UI} muss hier eine weitere GET-Route angelegt werden, die aus dem korrespondierenden EJS-Tempalte das HTML generiert.
+Es gibt genau einen \lstinline|viewCtrl|, der zur Auslieferung der HTML-Vorlagen verwendet wird. Für jede neue Seite der \ac{UI} muss hier eine weitere GET-Route angelegt werden, die aus dem korrespondierenden EJS-Template das HTML generiert.
 EJS ist hierbei ein Vorlagensprache, die Inline-Javascript ermöglicht und die Erzeugung von HTML-Seiten erleichtert.
 
-Alle anderen Controller dienen zum Definieren der REST-Schnittstelle der Anwendung (zum Beispiel der \lstinline|cosCtrl|). Im letzten Teil der \textit{app.js} wird der HTTP-Server gestartet und aus den Bluemix-Umgebungsvariabeln der Port ausgelesen. Lokal wird hierbei einfach ein freier verwendet.\\
+Alle anderen Controller dienen zum Definieren der REST-Schnittstelle der Anwendung (zum Beispiel der \lstinline|cosCtrl|). Im letzten Teil der \textit{app.js} wird der HTTP-Server gestartet und aus den Bluemix-Umgebungsvariabeln der Port ausgelesen. Lokal wird hierbei einfach ein freier Port verwendet.\\
 
 \textbf{Erzeugung eine REST-Schnittstellen Funktion}\\
 An dieser Stelle betrachten wir die Implementierung der REST-Schnittstelle zum Löschen von Dokumenten in der \ac{COS}-Dateispeichersystem. Dieses kann als exemplarisch betrachtet werden, da nach den gleichen Entwicklungsmuster auch alle anderen API-Funktionen der Anwendung umgesetzt wurden. 
@@ -168,7 +170,7 @@ module.exports = function(cosService) {
 		let id = req.params.id + req.params[0];
 
 		cosService.removeFile(id).done(function(data) {
-			let response = {msg: 'File delete successfull', delete: data};
+			let response = {msg: 'File delete successful', delete: data};
 			res.json(response);
 		},
 		function(err) {
@@ -229,7 +231,7 @@ app.use('/api/v1', require('./controller/cosCtrl')(cosService));
 \end{lstlisting}
 
 \textbf{Erzeugung einer Frontend-Seite mit Backend Anbindung über AJAX}\\
-Für die graphische Repräsentation existiert ebenfalls ein Arbeitsablauf: Zuerst muss eine EJS-Vorlage erstellt werden. Bei dieser handelt es ich, um eine erweiterte HTML-Datei. Es können, ähnlich wie bei PHP, andere Dateien (hier ein Header) eingebunden und die Sprache mit dynamischen Variablen erweitert werden.
+Für die graphische Repräsentation existiert ebenfalls ein Arbeitsablauf: Zuerst muss eine EJS-Vorlage erstellt werden. Bei dieser handelt es sich, um eine erweiterte HTML-Datei. Es können, ähnlich wie bei PHP, andere Dateien (hier ein Header) eingebunden und die Sprache mit dynamischen Variablen erweitert werden.
 
 Die neue Route muss im \lstinline|ViewCtrl| des Backends festgelegt werden:\\
 
@@ -243,7 +245,7 @@ An dieser Stelle kann man sehen, wie beim Ansprechen der URL eine neue HTML-Seit
 
 Für jede Seite im Frontend gibt es eine eigenen CSS-Style, eine Initialisierungsdatei und einen Controller, der Veränderungen vornimmt. Diese Dateien werden statisch aus dem \lstinline|public/|-Verzeichnis ausgeliefert.
 
-Das Erstellen der Dateihochladungsseite wird hier als Beispiel untersucht und einige Codebeispiele betrachtet: \\
+Das Erstellen der Seite zum Hochladen von Dateien wird hier als Beispiel untersucht und einige Codebeispiele betrachtet: \\
 
 \begin{lstlisting}[language=JavaScript, caption=Initalisierungsfunktion der Uploadseite in der fileUpload.js]
 let ctrl = null;
@@ -258,7 +260,7 @@ let submitFile = function() {
 $( document ).ready(main);
 \end{lstlisting}
 
-Nachdem das Dokument geladen wurde wird zuerst die \lstinline|main|-Funktion ausgeführt und der Controller für die Seite erstellt. Die hier angedeutete \lstinline|submitFile|-Routine sendet einen POST-Request zum Server mit der angehängten Datei. Beim Erfolg der Routine gibt der \lstinline|FileUploadCtrl| eine positives Feedback im Frontend:\\
+Nachdem das Dokument geladen wurde wird zuerst die \lstinline|main|-Funktion ausgeführt und der Controller für die Seite erstellt. Die hier angedeutete \lstinline|submitFile|-Routine sendet einen POST-Request zum Server mit der angehängten Datei. Beim Erfolg der Routine gibt der \lstinline|FileUploadCtrl| ein positives Feedback im Frontend:\\
 
 \begin{lstlisting}[language=JavaScript, caption=Initalisierungsfunktion der Uploadseite in der fileUpload.js]
 class FileUploadCtrl {

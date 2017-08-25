@@ -20,9 +20,9 @@ Von jedem Knoten des Clusters kann gleichzeitig auf sämtliche Daten zugegriffen
 
 \textbf{Clusterarten}
 
-Es kann eine Vielzahl von Cluster Konfigurationen erreicht werden, da IBM Spectrum Scale unterschiedlichste Betriebssysteme unterstützt (speziell Linux, AIX, Windows) und Speicher auf verschiedene Arten anschließbar ist. Im Folgenden werden zwei häufige Szenarien vorgestellt.
+Es kann eine Vielzahl von Cluster Konfigurationen erreicht werden, da IBM Spectrum Scale unterschiedlichste Betriebssysteme unterstützt (speziell Linux, AIX, Windows) und Speicher auf verschiedene Arten anschließbar ist. Im Folgenden werden zwei häufig verwendete Szenarien vorgestellt.
 
-Eine Variante ist der Anschluss von sämtlichen Knoten an das selbe Storage Area Network. Ist dies nicht der Fall, können nur einzelne Nodes als \ac{NSD} Server angeschlossen sein und die verbleibenden sind \ac{NSD} Klienten. Hierbei wird eine klassische Server-Client Architektur aufgesetzt bei der eine Vielzahl von GPFS Klienten auf eine kleinere Anzahl von GPFS Servern mit Speicheranbindung zugreift \parencite[S. 8]{ibm.2017}.
+Eine Variante ist der Anschluss von sämtlichen Knoten an das selbe Storage Area Network. Ist dies nicht der Fall, können nur einzelne Nodes als \ac{NSD} Server angeschlossen sein und die verbleibenden sind \ac{NSD} Klienten. Hierbei wird eine klassische Server-Client Architektur aufgesetzt bei der eine Vielzahl von GPFS Klienten auf eine kleinere Anzahl von GPFS Servern mit Speicheranbindung zugreift \parencite[S. 8]{ibm.2017}. Dies ist in \autoref{fig:gpfsarchitecture} verdeutlicht.
 
 \begin{figure}[hbt]
 	\centering
@@ -37,9 +37,9 @@ IBM Spectrum Scale unterstützt aktuell zwei Cloudfunktionen: \textbf{Cloud Tier
 
 Im ersten Szenario - dem sogenannten Cloud Tiering - werden so genannte kalte Daten (also Dateien, die selten benutzt werden und geringe Zugriffsraten erfordern) in der Cloud gespeichert, um die schnellen lokalen Datenspeicher zu entlasten. Dadurch kann die Clusterperformance erhöht und Kosten für zusätzlichen lokalen Speicher gespart werden. Diese Funktion ist in das \ac{ILM} System eingebunden und ermöglicht es den Administratoren Strategien zu definieren, um die Auslagerung bei bestimmten Daten auszulösen.
 Es sollten nur kalte Files in der Cloud gespeichert werden, da diese bei Zugriff herunterzuladen sind, was die Latenz massiv erhöht \parencite[S. 107]{ibm.2017}.
-Lokal wird ein Cloudverzeichnis angelegt, welches alle migrierten Daten auflistet. Wird auf einen sogenannten Datei-Stub (eine Art Referenz auf die Datei) zugegriffen, kann die ferne Information heruntergeladen werden. In der Cloud liegen pro File zwei verschlüsselte Dateien, eine für die eigentlichen Daten und eine zweite mit Metadaten (Besitzer, Zugriffsrechte, u.a.) \parencite[S. 108]{ibm.2017}.
+Lokal wird ein Cloudverzeichnis angelegt, welches alle migrierten Daten auflistet. Bei diesem Verzeichnis handelt es sich um einen speziellen Ordner in einem Filesystem von Spectrum Scale, welches mit dem entsprechenden Cloudaccount verbunden ist. Wird auf einen sogenannten Datei-Stub (eine Art Referenz auf die Datei) zugegriffen, kann die ferne Information heruntergeladen werden. In der Cloud liegen pro File zwei verschlüsselte Dateien, eine für die eigentlichen Daten und eine zweite mit Metadaten (Besitzer, Zugriffsrechte, u.a.) \parencite[S. 108]{ibm.2017}.
 
-Cloud Sharing ermöglicht das Teilen von lokalen Daten mit verschiedenen Arten von Objektspeichern (siehe \autoref{subsec:objectstorage}). Dieser Export kann ebenfalls durch \ac{ILM} Strategien in regelmäßigen Zyklen ausgelöst werden, um zum Beispiel Daten in der Cloud aktuell zu halten. Diese können dann von anderen Applikationen verwendet werden. Es ist ebenfalls ein Import vom Object Storage System möglich, um die lokalen Daten gegebenenfalls zu erweitern.
+Cloud Data Sharing ermöglicht das Teilen von lokalen Daten mit verschiedenen Arten von Objektspeichern (siehe \autoref{subsec:objectstorage}). Dieser Export kann ebenfalls durch \ac{ILM} Strategien in regelmäßigen Zyklen ausgelöst werden, um zum Beispiel Daten in der Cloud aktuell zu halten. Diese können dann von anderen Applikationen verwendet werden. Es ist ebenfalls ein Import vom Object Storage System möglich, um die lokalen Daten gegebenenfalls zu erweitern.
 Der Export wird parallel mit allen Clouddienstknoten durchgeführt. Dabei kann eine Liste aller Daten in einem Manifest gespeichert werden, um diese später nachzuverfolgen.\\
 Der größte Unterschied zur Migration beim Cloud Tiering ist, dass die Dateien in der Cloud nicht verschlüsselt werden, da sie auch für andere Nutzer verfügbar sein sollen und dass nach einem Transfer keine Verbindung (d.h. keine Updates bei späteren Änderungen) mehr zwischen lokalen und entfernten Files besteht \parencite[S. 109]{ibm.2017}.
 
@@ -51,7 +51,7 @@ Apache Hadoop (ab hier nur noch Hadoop) ist ein Framework zur Entwicklung von ma
 
 Dieses System sorgt für eine automatische Datenreplikation und unterstützt ebenfalls das leichte Hinzufügen von weiteren Servern mit zusätzlichem Plattenspeicher. Ein typischer Hadoop Cluster besteht aus Master- (hier läuft die Hadoop-Software), Arbeiterknoten (zur Bereitstellung von Speicher mit \ac{HDFS} und Rechenleistung mit \ac{YARN}) und so genannten Edge-Servern (Zugriff auf den Cluster zum Ausführen von Programmen). Zusätzlich kann es noch Server für weitere Frameworks geben und Datenbanken für spezielle Metadaten \parencite[Kap. I,1]{alapati.2016}.
 
-Bearbeitung der Daten kann mithilfe verschiedener Anwendungsframeworks passieren, besonders beliebt ist hierbei MapReduce und Apache Spark.
+Die Bearbeitung der Daten kann mithilfe verschiedener Anwendungsframeworks passieren, besonders beliebt ist hierbei MapReduce und Apache Spark.
 
 Standardmäßig repliziert HDFS jeden Datensatz dreimal, um eine hohe Ausfallsicherheit zu garantieren. Es wird ein \ac{WORM} Zugriffsmodel verwendet, sodass Konsistenz kein Problem darstellt, da immer nur ein Nutzer auf eine Datei schreiben kann. Daten werden in große Blöcke (zum Beispiel 256 MB) aufgeteilt und auf verschiedenen Maschinen gespeichert. Hierdurch können auch sehr große Files gesichert werden, die für einzelne Maschinen zu viel Speicher brauchen würden. Metadaten für alle Blöcke werden innerhalb einer NameNode im RAM und auf konsistentem Speicher gesichert  \parencite[Kap. I,2]{alapati.2016}.
 
@@ -59,7 +59,7 @@ Hadoop kann auch komplett in der Cloud verwendet werden. Es gibt einige Hosting-
 
 \subsection{Objektdateisysteme} \label{subsec:objectstorage}
 
-Objektspeicher ist eine moderne Speichertechnologie und eine logische Weiterentwicklung von Block- oder Dateispeichern. Er virtualisiert die physische Implementierung komplett von der logischen Darstellung. Als Nutzer übergibt man seine Daten in das System, weiß aber nicht, wo diese dann genau gespeichert werden. Es soll Probleme von klassischen Lösungen wie komplexe Speicherhierachie, Defragmentierung von Filesystemen, sowie Sicherheit und Zugriff umgehen \parencite[Kap. 1, Object Storage]{varma.2015}.
+Objektspeicher ist eine moderne Speichertechnologie und eine logische Weiterentwicklung von Block- oder Dateispeichern. Er virtualisiert die physische Implementierung komplett von der logischen Darstellung. Als Nutzer übergibt man seine Daten in das System, weiß aber nicht, wo diese dann genau gespeichert werden. Es soll Probleme von klassischen Lösungen wie komplexe Speicherhierachie, Fragmentierung von Filesystemen, sowie Komplexität von Sicherheit und Zugriffsoperationen umgehen \parencite[Kap. 1, Object Storage]{varma.2015}.
 
 \begin{figure}[hbt]
 	\centering
@@ -74,11 +74,11 @@ Dieser Typ von Dateisystem umfasst drei Hauptkomponenten:
 	\item \textbf{Daten:}\\
 	 Nutzer und Anwendungsinformationen, die persistent hinterlegt werden müssen. Jede Art von Format ist hierbei unterstützt.
 	\item \textbf{Metadaten:}\\
-	 Diese sind Informationen über die eigentlichen Daten wie zum Beispiel Dateigröße oder Uploadzeit. Ebenfalls können benutzerdefiniert Schlüssel-Wert Paare von nutzenden Anwendungen gespeichert werden. Diese sind von den Applikationen oder Usern zu jeder Zeit frei veränderbar. Eine Besonderheit dieses Filesystems ist, dass die Metadaten zusammen mit den eigentlichen Daten gespeichert werden.
+	 Diese sind Informationen über die eigentlichen Daten wie zum Beispiel Dateigröße oder Uploadzeitpunkt. Ebenfalls können benutzerdefiniert Schlüssel-Wert Paare von nutzenden Anwendungen gespeichert werden. Diese sind von den Applikationen oder Usern zu jeder Zeit frei veränderbar. Eine Besonderheit dieses Filesystems ist, dass die Metadaten zusammen mit den eigentlichen Daten gespeichert werden.
 	\item \textbf{\ac{UUID}:} Diese eindeutige ID wird jedem Objekt im Speicher zugeordnet. Mit ihr können Daten unterschieden  und gefunden werden, unabhängig von der physikalischen Position der eigentlichen Informationen.
 \end{itemize}
 
-Durch obige Eigenschaften wird eine flache Hierarchie erzeugt, die Probleme mit außer Kontrolle geratenen Metadatenspeichern verhindert. Daten können in sogenannten Buckets zusammengefasst werden, um eine logische Strukturierung einzuführen und ebenfalls die Zugriffsrechte von Nutzern einschränken zu können.  
+Durch obige Eigenschaften wird eine flache Hierarchie erzeugt, die Probleme mit außer Kontrolle geratenen Metadatenspeichern verhindert. Daten können in sogenannten Buckets zusammengefasst werden, um eine logische Strukturierung einzuführen und gegebenenfalls die Zugriffsrechte von Nutzern einschränken zu können.  
 
 Da diese Art von Daten fast immer in der Cloud oder auf einem entfernen Server gespeichert werden, bieten sich besonders REST-Schnittstellen zum Zugriff auf die Daten an \parencite[S. 4f]{Rios.2017}.
 

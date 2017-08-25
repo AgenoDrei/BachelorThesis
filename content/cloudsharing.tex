@@ -3,7 +3,8 @@ Nach erfolgreicher Einrichtung einer Cloud Node im Spectrum Scale Cluster, kann 
 Bei der Einrichtung wird davon ausgegangen, dass folgende Einstellungen vorgenommen wurden:
 \begin{itemize}
 	\item Name der NodeClass: \textbf{TCTNodeClass}
-	\item Cloud Typ: \textbf{mcstore}
+	\item Cloud Typ: \textbf{cleversafe-new}
+	\item Cloud Bezeichnung: \textbf{mcstore}
 	\item Name des Cloud-Dateisystems: \textbf{fs1}
 \end{itemize}
 
@@ -33,7 +34,7 @@ mmcloudgateway account pre-test --cloud-type cleversafe-new --username "<usernam
 
 Nach Ausführung wird eine Testverbindung aufgebaut, entstehen keine Fehlermeldungen kann nun der Account eingerichtet werden. An dieser Stelle ist es extrem wichtig, dass die Option \lstinline|--enc-enable| auf \lstinline|FALSE| gesetzt wird. Ansonsten kann das beabsichtigte Cloud Sharing nicht umgesetzt werden, da beim Export eine Dateiverschlüsselung stattfindet. Diese macht das Lesen der Informationen von anderen Anwendungen (hier unsere Demoanwendung) unmöglich.
 
-Die Befehlssyntax benötigt an dieser Stelle aber noch weitere Informationen, die für deinen eigentlichen Test nicht notwendig waren:\\
+Die Befehlssyntax benötigt an dieser Stelle aber noch weitere Informationen, die für den Test nicht notwendig waren:\\
 
 \begin{lstlisting}[language=bash, caption=Einrichtung des Cloud Sharing Accounts]
 mmcloudgateway account create --cloud-nodeclass TCTNodeClass --cloud-name mcstore --cloud-type cleversafe-new --username "<username>" --pwd-file <path/file/your/secretAccessKey> --enable TRUE --cloud-url <cos/endpoint> --enc-enable FALSE
@@ -44,9 +45,9 @@ Nach erfolgreicher Ausführung des Befehls ist der Account fertig eingerichtet u
 \textbf{Export von lokalen Dateien in die Cloud}\\
 Um Informationen in den konfigurierten Cloud Account zu exportieren, muss zuerst in das ausgewählte Datei System für die Cloud Knoten gewechselt werden (hier: \lstinline|cd /gpfs/fs1|).
 
-Mit dem bereits bekannten \lstinline|mmcloudgateway| Befehl können nun einzelne oder mehrere Files zwischen \ac{COS} und der lokalen Maschine kopiert werden.
+Mit dem bereits bekannten \lstinline|mmcloudgateway| Befehl können nun einzelne oder mehrere Dateien zwischen \ac{COS} und der lokalen Maschine kopiert werden.
 
-Es besteht die Möglichkeit Metadaten beim Sharing zu erhalten und alle exportierten Files können in einem Manifest festgehalten werden. Dieses hilft beim späteren Import, da eine List alle exportierten Dateien vorliegt. 
+Es besteht die Möglichkeit, Metadaten beim Sharing zu erhalten und alle exportierten Files in einem Manifest festzuhalten. Dieses hilft beim späteren Import, da eine Liste aller exportierten Dateien vorliegt. 
 
 \begin{lstlisting}[language=bash, caption=Export von lokalen Dateien]
 mmcloudgateway files export <path/to/file> --manifest-file manifest.txt --export-metadata

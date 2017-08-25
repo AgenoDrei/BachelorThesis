@@ -46,9 +46,9 @@ Dies zieht sich durch die gesamte Softwarelandschaft und auch die geläufigen Be
 
 Bandlaufwerke funktionieren im Grunde wie die früher verwendeten Kassetten. Innerhalb des Laufwerkes befindet sich ein dünner Streifen aus Plastik mit einer magnetischen Oberfläche. Dieser wird - ähnlich wie bei Festplatten - mit digitalen Daten beschrieben. 
 
-Es kann nicht auf beliebige Bereiche des Bandes zugegriffen werden. Lesen und Schreiben erfolgt immer sequentiell. Das Laufwerk muss von Anfang bis Ende durchlaufen werden, um I/O Aktionen durchführen zu können \parencite{adrc.2009}.
+Es kann nicht auf beliebige Bereiche des Bandes schreibend zugegriffen werden. Lesen und Schreiben erfolgt immer sequentiell \parencite{adrc.2009}.
 
-Ein Bandlaufwerk verwendet einen kleinen Motor, um das Band auf- und abzuwickeln. Dabei wandert dieses entlang eines Lese- und Schreibkopfes. Um Unterschiede zwischen der Geschwindigkeit der ankommenden Daten vom Computer und der begrenzten \gls{IOPS} des Laufwerkes auszugleichen, wird eine Steuereinheit verwendet. Diese regelt Fehlerhandling, Puffer und andere logische Operationen.
+Ein Bandlaufwerk verwendet einen kleinen Motor, um das Band auf- und abzuwickeln. Dabei wandert dieses entlang Lese- und Schreibköpfen. Um Unterschiede zwischen der Geschwindigkeit der ankommenden Daten vom Computer und der begrenzten \gls{IOPS} des Laufwerkes auszugleichen, wird eine Steuereinheit verwendet. Diese regelt Fehlerhandling, Puffer und andere logische Operationen.
 
 Informationen werden in die Steuereinheit geladen und dann auf das Band geschrieben. Dieser Prozess wiederholt sich solange, bis keine Daten mehr im Puffer vorhanden sind.
 
@@ -61,7 +61,7 @@ An dieser Stelle werden einige populäre Technologien untersucht, um großen Men
 \subsubsection{Direct Attached Storage (DAS)}
 
 Bei \ac{DAS} handelt es sich um externen Speicher, der direkt mit einem oder mehreren Servern über beispielsweise ein \gls{SCSI} Interface verbunden ist. Dabei wird kein Netzwerk verwendet. Es gibt zwei verschiedene Typen von \ac{DAS}, bei der ersten Art werden beliebige Platten zusammen- (\ac{JBOD}) und bei der zweiten sogenannten \acs{RAID} (Arrays von Festplatten, die vor Speicherverlust schützen) angeschlossen.
-Hierbei handelt sich um den ältesten Speichertypen, der lange vor dem Entstehen von SAN oder NAS verwendet wurde.
+Hierbei handelt sich um den ältesten Speichertypus, der lange vor dem Entstehen von SAN oder NAS verwendet wurde.
 
 Es kann nur eine begrenzte Zahl von \ac{DAS} an einen Rechner angeschlossen werden, da die Anzahl von Schnittstellen an Servern limitiert ist. Dadurch ist diese Art von Speicher leider nur begrenzt skalierbar.
 
