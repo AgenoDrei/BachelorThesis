@@ -1,7 +1,6 @@
 \subsection{Cloudmodelle}
-\todo{Weitere Quellen benutzen}
 
-Es gibt verschiedene Cloudmodelle, die jeweils unterschiedliche Features für den User bereitstellen. Hauptsächlich unterscheidet man hier zwischen \ac{IaaS}, \ac{PaaS} und \ac{SaaS}, welche aber auch gleichzeitig vom selben Anbieter zur Verfügung gestellt sein können.
+Es gibt verschiedene Cloudmodelle, die jeweils unterschiedliche Funktionen für den User bereitstellen. Hauptsächlich unterscheidet man hier zwischen \ac{IaaS}, \ac{PaaS} und \ac{SaaS}, welche aber auch gleichzeitig vom selben Anbieter zur Verfügung gestellt sein können.
 
 \begin{itemize}
 	\item \textbf{IaaS}:\\
@@ -24,19 +23,19 @@ Außerdem können Cloudsysteme in verschiedenen Umgebungen installiert werden, u
 \end{itemize}
 
 \subsection{Cloudanbieter} \label{subsec:cloudprovider}
-Durch die Popularität von Cloud Computing gibt es mittlerweile eine Vielzahl von Anbietern, an dieser Stelle werden nur die drei Größten (1. Amazon Web Services, 2. Microsoft, 3. IBM) kurz vorgestellt \parencite{statistia.2016}. Es wird sich hierbei auf Anbieter beschränkt, die mindestens \acs{PaaS} Funktionalitäten bieten, da für das Projekt dieser Arbeit eigene Anwendungen entwickelt werden müssen.
+Durch die Popularität von Cloud Computing gibt es mittlerweile eine Vielzahl von Anbietern. An dieser Stelle werden nur die drei Größten (1. Amazon Web Services, 2. Microsoft, 3. IBM) kurz vorgestellt \parencite{statistia.2016}. Es wird sich hierbei auf Anbieter beschränkt, die mindestens \acs{PaaS} Funktionalitäten bieten, da für das Projekt dieser Arbeit eigene Anwendungen entwickelt werden müssen.
 
 
 \textbf{Amazon Web Services}\\
 Amazon ist im Moment der Marktführer mit fast 30 Prozent Marktanteil. Dies basiert zum einen darauf, dass \ac{AWS} mit einer der ersten modernen Anbieter (seit 2002 in einfacher Form und seit 2006 mit den ersten Cloud Services) ist und es eine Vielzahl von Diensten gibt. Es gibt sowohl direkt ansprechbare Services für Speicher, Rechenleistung und Netzwerkfähigkeiten für \acs{PaaS} Aufgaben als auch VM Systeme und Container für frei konfigurierbare Anwendungen (\acs{IaaS}).
 
-Zum Beispiel die \ac{S3}-Schnittstelle wurde von Amazon entwickelt und wird an einer Vielzahl von Stellen für die Kommunikation mit Objektspeichersystemen verwendet \parencite{aws.2017}.
+Die \ac{S3}-Schnittstelle wurde von Amazon entwickelt und wird an einer Vielzahl von Stellen für die Kommunikation mit Objektspeichersystemen verwendet \parencite{aws.2017}.
 
-Aufgrund Amazons langer Geschichte mit Cloud Computing bieten sie im Moment die meisten Datencenter weltweit an und haben mehr Rechenleistung als die beiden anderen Konkurrenten zusammen. Auch bei der Auswahl von Diensten haben Entwickler hier die meiste Vielfalt. Als Nachteil gelten eine gewisse Komplexität bei der Nutzung und eine Vernachlässigung des Hybrid- und Privat Cloud-Angebots \parencite{computerworlduk.2016}.
+Aufgrund Amazons langer Geschichte mit Cloud Computing bieten sie im Moment die meisten Datencenter weltweit an und haben mehr Rechenleistung als die beiden anderen Konkurrenten zusammen. Auch bei der Auswahl von Diensten haben Entwickler hier die meiste Vielfalt. Als Nachteil gelten eine gewisse Komplexität bei der Nutzung und eine Vernachlässigung des Hybrid- und Private Cloud-Angebots \parencite{computerworlduk.2016}.
 
 
 \textbf{Microsoft Azure}\\
-Azure ist die Anwendungsplattform von Microsoft für eine öffentliche Cloud mit \acs{PaaS}- und \acs{IaaS}-Features. Sie ist spezialisiert für die Kombination mit Microsoft Diensten, Programmiersprachen und Lösungen. Mithilfe eines Management Portals lassen sich gehostete Applikationen verwalten. 
+Azure ist die Anwendungsplattform von Microsoft für eine öffentliche Cloud mit \acs{PaaS}- und \acs{IaaS}-Features. Sie ist spezialisiert auf die Kombination mit Microsoft Diensten, Programmiersprachen und Lösungen. Mithilfe eines Management Portals lassen sich gehostete Applikationen verwalten. 
 
 Es besteht die Möglichkeit, \acs{VM}s oder Web Applikationen, für die eine Bandbreite an verschiedenen Diensten zur Verfügung steht, zu erzeugen. Es können ganze \acs{VM}s, Container oder auch nur einzelne lokale Komponenten (z.B. Speicher )aus on-premise Datencentern leicht in die Cloud gehoben werden.
 
@@ -44,11 +43,11 @@ Insgesamt gibt es viele Überschneidungen mit \acs{AWS}, aber die Kompatibilitä
 
 
 \textbf{IBM Bluemix}\\
-Bei Bluemix handelt es sich um die \acs{PaaS}/\acs{IaaS}-Lösung von IBM (wobei diese Funktion von Softlayer zur Verfügung gestellt werden), die zuerst 2014 das erste Mal vorgestellt wurde. Außer der Möglichkeit, \acs{VM}s, Root Server und Docker Container zu hosten, werden eine Vielzahl von IBM und Drittpartei-Dienste angeboten, die von Speicher bis zu \ac{IoT} oder Maschinenlernen reichen.	
+Bei Bluemix (ehemals Softlayer) handelt es sich um die \acs{PaaS}/\acs{IaaS}-Lösung von IBM, die 2014 das erste Mal vorgestellt wurde. Außer der Möglichkeit, \acs{VM}s, Root Server und Docker Container zu hosten, werden eine Vielzahl von IBM und Drittpartei-Diensten angeboten, die von Speicher bis zu \ac{IoT} oder Maschinenlernen reichen.	
 
 Zur Bereitstellung von Applikationen wird Cloud Foundry verwendet, eine Open Source-Anwendungsplattform zur Abstraktion von Infrastruktur \parencite{bluemix.2017}.
 
-Es kann in einer Vielzahl populärer Sprachen entwickelt werden (Node, PHP, Ruby, Java, Go...) und es gibt sogenannte Buildpacks, die nicht vorhandene Laufzeitumgebungen zum Teil nachrüsten. Ebenfalls kann Bluemix als private Cloud oder in einem "dedizierten" Modus zur Verfügung gestellt werden. Bei diesem wird garantiert, dass eine \acs{VM} nur auf einem isolierten Bare-Metal Server läuft.
+Es kann in einer Vielzahl populärer Sprachen entwickelt werden (Node, PHP, Ruby, Java, Go, u.v.m) und es gibt sogenannte Buildpacks, die nicht vorhandene Laufzeitumgebungen zum Teil nachrüsten. Ebenfalls kann Bluemix als private Cloud oder in einem "dedizierten" Modus zur Verfügung gestellt werden. Bei diesem wird garantiert, dass eine \acs{VM} nur auf einem isolierten Bare-Metal Server läuft.
 
 In der Bluemix-Konsole (Managementoberfläche) lassen sich auch einige \gls{DevOps} Funktionen konfigurieren. Es gibt einen eigenen Code Editor, Gitlab Integration und eine Buildpipeline für \ac{CI} \parencite{fassnacht.2016}.
 

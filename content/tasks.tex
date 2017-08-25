@@ -15,31 +15,29 @@ Aufgabe der Abteilung ist das Management und die Erstellung von Labordemonstrati
 
 \subsection{Ist-Zustand}
 
-In der Abteilung werden zur Zeit verschiedene lokale Speicherlösungen von IBM in Testumgebungen zur Verfügung gestellt. Auch komplexe Lösungen, wie zum Beispiel Spectrum Scale, können in virtuellen Speicherclustern realistisch simuliert werden. Besonders neue Features sollen hierbei vorgeführt werden.
+In der Abteilung werden zur Zeit verschiedene lokale Speicherlösungen von IBM in Testumgebungen zur Verfügung gestellt. Auch komplexe Lösungen, wie zum Beispiel Spectrum Scale, können in virtuellen Speicherclustern realistisch simuliert werden. Besonders neue Features sollen hierbei getestet und demonstriert werden.
 
-Aufgrund vieler relativ alter Produkte, die schon seit Jahrzehnten stets weiterentwickelt wurden, gibt es nur wenige mit öffentlichen Cloud-Dienstleistern zusammenspielende Demoanwendungen.
+Relativ viele Produkte wurden bereits lange vor der dem Aufkommen von Cloud-Computing entwickelt und es gab bisher noch keine Notwendigkeit sie mit Clouddiensten zu verknüpfen. Seit kurzem unterstützen viele von ihnen unterschiedliche Anknüpfungsmöglichkeiten an die Cloud, die aber noch genauer untersucht und vorgestellt werden müssen.
 
-Ebenfalls werden vereinzelt ältere Versionen von Software verwendet, die noch keine oder nur teilweise Anbindung an Cloud-Dienste ermöglichen. 
-
-Die Anzahl an Demoanwendungen, die direkt in der Cloud laufen und auf die lokalen Lösungen zugreifen, ist leider ebenfalls noch relativ gering. 
+Die Anzahl an Demoanwendungen, die direkt in der Cloud laufen und auf die lokalen Lösungen zugreifen, ist ebenfalls noch relativ gering aufgrund des relative jungen Alters dieser Technologien.
 
 \subsection{Soll-Zustand}
 
-Langfristig ist die Bereitstellung viele Demos für Cloud-Szenarien ein wichtiges Ziel der Abteilung. Diese sollen auf der einen Seite die Kompatibilität von IBM-Produkten mit verschiedenen Cloudanbietern verdeutlichen und auf der anderen Seite Synergien mit kognitiven Diensten von IBM aufzeigen.
+Langfristig ist die Bereitstellung vielen Demos für Cloud-Szenarien ein wichtiges Ziel der Abteilung. Diese sollen auf der einen Seite die Kompatibilität von IBM-Produkten mit verschiedenen Cloudanbietern verdeutlichen und auf der anderen Seite Synergien mit kognitiven Diensten von IBM aufzeigen.
 
-Das Potential vieler Produkte, private, hybride und öffentliche Cloud Computing Lösungen zu ermöglichen, soll nicht nur in der Theorie vorhanden sein, sondern hier aktiv präsentiert und implementiert sein.
+Das Potential vieler Produkte, private, hybride und öffentliche Cloud Computing Lösungen zu ermöglichen, soll nicht nur in der Theorie vorhanden sein, sondern hier aktiv präsentiert und implementiert werden.
 
 Dies ist nur möglich, wenn eine größere Anzahl an Demos zur Verfügung gestellt wird, die im besten Fall auf \gls{Bluemix} laufen, damit auch die Fähigkeiten vom IBM Cloud Angebot gezeigt werden können. 
 
 \subsection{Aufgaben}
 
-Im Rahmen dieser Arbeit soll das Clusterspeichersystem Spectrum Scale (früher GPFS) mit einer Public Cloud-Lösung verknüpft werden. Hierzu sollen die vorhandenen Möglichkeiten der Software für diesen Anwendungsfall untersucht und evaluiert werden.
+Im Rahmen dieser Arbeit soll das Clusterspeichersystem IBM Spectrum Scale (früher GPFS) mit einer Public Cloud-Lösung verknüpft werden. Hierzu sollen die vorhandenen Möglichkeiten der Software für diesen Anwendungsfall untersucht und evaluiert werden.
 Die Geeignetste soll innerhalb einer Testumgebung aufgesetzt, konfiguriert und mit einem geeigneten Speicher in der Cloud erweitert werden. 
-Sollte sich das Setup als sinnvoll erweisen, besteht die Möglichkeit, diese Umgebung in einer Produktivumgebung im Labor einzurichten.
+Sollte sich das Setup als sinnvoll erweisen, besteht die Möglichkeit, diese Umgebung in einem permanenten Aufbau im Labor einzurichten.
 
-Zusätzlich soll eine Demonanwendung entwickelt werden, die das Potential des oben beschriebenen Setups testen kann. Diese Anwendung sollte ebenfalls in \gls{Bluemix} entwickelt werden, sodass eine echte Hybrid Cloud-Applikation entsteht. 
+Zusätzlich soll eine Demonanwendung entwickelt werden, die das Potential des oben beschriebenen Setups testen kann. Diese Anwendung sollte in \gls{Bluemix} entwickelt werden, sodass eine echte Hybrid Cloud-Applikation entsteht. 
 
-Diese soll eine Technik (Cloud Sharing) darstellen, mithilfe der Daten aus einem lokalen System in Cloud betrachtet und bearbeitet werden können.
+Diese soll eine Technik (Cloud Sharing) darstellen, mit deren Hilfe Daten aus einem lokalen System der IBM in der Cloud betrachtet und bearbeitet werden können.
 
 Die Einbindung von weiteren IBM-Diensten ist hierbei erwünscht, damit mögliche Anwendungen für Kunden besser dargestellt werden können.
 
@@ -47,11 +45,11 @@ Die Einbindung von weiteren IBM-Diensten ist hierbei erwünscht, damit mögliche
 
 Sämtliche Arbeit findet innerhalb der in \autoref{subsec:enviroment} erwähnten Abteilung statt. Hierbei wird ebenfalls Fachwissen von den Mitarbeitern zur Unterstützung und Beratung hinzugezogen.
 
-Software und Hardware zum Aufsetzen von IBM Produkten wird bereitgestellt, hierbei speziell IBM Spectrum Scale. Für die Entwicklung mithilfe einer Testumgebung wird ein Lenovo Thinkpad T440 mit Redhat 7.3 Linux verwendet. Hierbei wird der Clusterspeicher in einer mit KVM betriebenen virtuellen Maschine aufgesetzt.
+Software und Hardware zum Aufsetzen von IBM Produkten wird bereitgestellt, hierbei speziell IBM Spectrum Scale. Für die Entwicklung einer Testumgebung wird ein Lenovo Thinkpad T440 mit Redhat 7.3 Linux verwendet. Hierbei wird der Clusterspeicher in einer mit KVM betriebenen virtuellen Maschine aufgesetzt.
 
 Zur Versionsverwaltung der Demoanwendung wird \gls{Git} verwendet. Notwendiges Projektmanagement wird agil umgesetzt und es werden, wenn notwendig, Stories oder auch Tasks erzeugt, die dann zusammen mit den Git Issues getrackt werden können (ein Feature von der Gitumgebung von Bluemix).
 
-Zudem werden eine Reihe externer Tools und Frameworks eingesetzt, ebenso wie IBM Software, die verwendet und angepasst wird und nicht direkter Teil dieser Arbeit ist. Ich beschränke den Bericht auf von mir gemachte Entwicklung, außer diese steht im direkten Zusammenhang mit Features, die von Anderen implementiert wurden und aus Verständlichkeitsgründen nicht ausgelassen werden können.
+Zudem werden eine Reihe externer Tools und Frameworks eingesetzt, ebenso wie IBM Software, die verwendet und angepasst wird und nicht direkter Teil dieser Arbeit ist. Ich beschränke den Bericht auf von mir gemachte Entwicklung, mit Ausnahme von Software dritter, die aus Verständlichkeitsgründen nicht ausgelassen werden kann.
 
 IBM Spectrum Scale wird nicht komplett aufgesetzt, da dies zeitaufwendig und bereits häufig gemacht worden ist. Stattdessen wird ein konfiguriertes Abbild verwendet, dass nur noch für die Verwendung mit der Cloud verändert werden muss.
 
