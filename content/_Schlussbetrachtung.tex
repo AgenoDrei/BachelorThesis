@@ -5,43 +5,43 @@ In diesem Kapitel werden die praktischen Ergebnisse der Arbeit kritisch beleucht
 \section{Diskussion der Ergebnisse}
 Anhand der Implementierung einer einfachen Hybrid-Cloud Lösung lassen sich bereits einige allgemeingültige Schlüsse ableiten:
 
-Es ist möglich, Clusterspeicher mithilfe von Cloud Computing zu kombinieren, ohne dass hierfür eine Vielzahl an neuen Technologien entwickelt werden muss. Bestehende Software lässt sich kombinieren und hiermit eine Brücke zwischen Anwendungen in einer privaten und öffentlichen Cloud erzeugen. Es gibt verschiedene Möglichkeiten (zum Beispiel Cloud-Tiering oder Data Sharing), Daten mit der Cloud auszutauschen, ohne dass hierfür das aktuelle lokale Speichersetup verändert werden müsste.
+Es ist möglich, Clusterspeicher mithilfe von Cloud Computing zu kombinieren, ohne dass hierfür eine Vielzahl an neuen Technologien entwickelt werden muss. Bestehende Software lässt sich kombinieren und hiermit eine Brücke zwischen Anwendungen in einer privaten und öffentlichen Cloud erzeugen. Es gibt verschiedene Möglichkeiten (zum Beispiel Cloud-Tiering oder Data Sharing), Daten mit der Cloud auszutauschen, ohne dass hierfür das aktuelle lokale Speichersetup verändert werden muss.
 Dieses kann also auch weiterhin schnelle Platten oder \acp{SSD} für I/O intensive Aufgaben verwenden und nur kalte Daten in die Cloud senden.
 Einmal exportierte Daten sind leicht zugänglich, da aufgrund des \ac{S3} Protokolls ein einheitlicher Standard zum Zugriff auf die Daten gegeben ist. Für diesen gibt es auch eine Vielzahl von Clientenprogrammenund Entwicklungspakete (SDK) für alle relevanten Programmiersprachen.
 Sie können somit von einer Vielzahl von anderen Anwendungen sehr leicht verwendet werden. Diese können dann auch auf Dienste zugreifen, die nur über bestimmte öffentliche Cloudplattformen verfügbar sind (Der verwendete Watson Dienst ist ein Beispiel hierfür).
 
 Trotz allem ist das gesamte Setup sehr aufwendig, da sowohl Komponente auf den privaten Servern wie auch in der Cloud Umgebung erzeugt werden müssen. Es besteht also ein doppelter Administrationsaufwand, der nur schwer vermieden werden kann. 
-Zusätzlich bestehen auf der Seite von Spectrum Scale keine dedizierten Funktionen zum direkten Erstellen eines Manifests aus einem Cloudobjektspeicher.. Daten, die in der Cloud erzeugt werden, können nur über Umwege wieder zurück in den Speichercluster importiert werden. Dies macht es notwendig, dass hierfür eigene Software erzeugt wird.
+Zusätzlich bestehen auf der Seite von IBM Spectrum Scale keine dedizierten Funktionen zum direkten Erstellen eines Manifests aus einem Cloudobjektspeicher.. Daten, die in der Cloud erzeugt werden, können nur über Umwege wieder zurück in den Speichercluster importiert werden. Dies macht es notwendig, dass hierfür eigene Software entwickelt wird.
 Durch die Verwendung von \ac{COS} entsteht ebenfalls ein Leistungsflaschenhals, da Dateien nur mithilfe des HTTP-Protokolls hoch- oder heruntergeladen werden können. Bei diesem entstehen für jede Anfrage unnötig große Überhänge, da mehrere Schichten an Kopfdateien angehängt werden. Aufseiten von Scale können natürlich mehrere Import- oder Exportvorgänge parallel stattfinden, dies ist aber nicht unbedingt für die konsumierende Cloudanwendung gegeben. Bei dieser müsste eine Parallelität manuell implementiert werden, was je nach verwendeter Sprache sehr aufwendig ausfallen kann.
 Mit dieser Art von Hybrid-Cloud kann niemals eine Echtzeitaustausch von Daten stattfinden. Sie müssen erst von Scale in \ac{COS} exportiert und dann von der öffentlichen Anwendung heruntergeladen werden. In die andere Richtung muss Scale erst über die Veränderung benachrichtigt werden, damit dieses dann die veränderte Datei herunterladen kann. Trotzdem stellt diese im Moment den aktuellen Stand der Technik dar und ist normal für Hybrid-Cloud Anwendungen.
 
 Trotz der oben genannten Einschränkungen ist der Aufbau wertvoll. Ein Beispiel hierfür wären typische \ac{BI} oder Data-Mining Anwendungen. Die Daten des Geschäftstages können nachts hochgeladen und dann analysiert werden.
 Geschützte Daten könnten bereinigt und nur allgemeine Angaben in die Cloud für Analysezwecke hochgeladen werden.
-Ebenfalls macht dieser Setup auch die Sicherung von Daten möglich, da Cloudspeicher im Normalfall sehr günstig ist.
+Ebenfalls macht dieses Setup auch die Sicherung von Daten möglich, da Cloudspeicher im Normalfall sehr günstig ist.
 
-Es ist also möglich eine Vielzahl von neuen Anwendungsgebieten zu erschließen, die so mit einer rein privaten oder öffentlichen Cloud nicht möglich ist. Trotz Einschränkungen lässt sich mit genug Aufwand eine zuverlässige, stabile und schnell laufende Anwendung erzeugen. 
+Es ist also möglich eine Vielzahl von neuen Anwendungsgebieten zu erschließen, die so mit einer rein privaten oder öffentlichen Cloud nicht möglich ist. Trotz Einschränkungen lässt sich mit gewissem Aufwand eine zuverlässige, stabile und schnell laufende Anwendung erzeugen. 
 \section{Fazit \& Ausblick}
 
 An dieser Stelle wird kurz untersucht inwiefern, die am Anfang gestellten Anforderungen erfüllt und umgesetzt wurden.
 
 \subsection{Reflexion der Aufgabenstellung und Zielerreichung}
 
-Ziel der Arbeit ist die Anbindung von Spectrum Scale an eine öffentliche Cloudplattform, speziell IBM Bluemix. Um dies zu erreichen, müssen verschiedene Technologien für Speicher und Cloud-Computing untersucht und die in diesem Kontext beste ausgewählt werden. Nach dieser theoretischen Untersuchung soll ein Testcluster, ein Cloudspeicher und alle notwendigen Komponenten für die Demo erstellt werden.
+Ziel der Arbeit ist die Anbindung von IBMSpectrum Scale an eine öffentliche Cloudplattform, speziell IBM Bluemix. Um dies zu erreichen, müssen verschiedene Technologien für Speicher und Cloud-Computing untersucht und die in diesem Kontext beste ausgewählt werden. Nach dieser theoretischen Untersuchung sollen ein Testcluster, ein Cloudspeicher und alle notwendigen Komponenten für die Demo erstellt werden.
 Die Applikation soll zusätzlich einen Clouddienst einbinden, der eine nicht triviale Funktionalität umsetzt. Ansonsten soll diese ein einfaches Nutzerinterface für Vorführungszwecke besitzen.
 
 \textbf{Zielerreichung:}\\
-Oben genannten Ziel wurden voll erreicht. Nach Untersuchung von verschiedenen Techniken für Cloud und Speicher hat sich IBM Bluemix in Kombination mit \ac{COS} als beste für die Demo erwiesen. 
+Oben genannte Ziele wurden voll erreicht. Nach Untersuchung von verschiedenen Techniken für Cloud und Speicher hat sich IBM Bluemix in Kombination mit \ac{COS} als beste für die Demo erwiesen. 
 
-Es existiert nun ein angepasstes VM-Abbild, mithilfe dem ein Spectrum Scale Cluster aufgesetzt werden kann, der fertig für Cloud Sharing mithilfe von \acl{COS} konfiguriert ist. Ebenfalls wurde eine Anwendung (basierend auf einer node.js Laufzeitumgebung) auf Bluemix erstellt, die Einsicht und Analyse von Bilddateien auf \ac{COS} ermöglicht. Diese verwendet hierfür einen Watson Service aus dem Bluemix-Service-Katalog. Die Analysedaten werden den ursprünglichen Dateien als Metainformationen angefügt und stehen dann auch wieder Spectrum Scale zur Verfügung 
+Es wurde ein angepasstes VM-Abbild erzeugt, mithilfe dem ein IBM Spectrum Scale Cluster aufgesetzt werden kann, der fertig für Cloud Sharing mithilfe von \acl{COS} konfiguriert ist. Ebenfalls wurde eine Anwendung (basierend auf einer node.js Laufzeitumgebung) auf Bluemix erstellt, die Einsicht und Analyse von Bilddateien auf \ac{COS} ermöglicht. Diese verwendet hierfür einen Watson Service aus dem Bluemix-Service-Katalog. Die Analysedaten werden den ursprünglichen Dateien als Metainformationen hinzugefügt und stehen dann auch wieder IBM Spectrum Scale zur Verfügung 
 
-Das Aufsetzen der Lösung im Labor ist nicht notwendig, da die Rechenleistung eines normalen Bürodesktops ausreicht, um die Demo darzustellen. Zudem kann die Demo auch vorgeführt werden, wenn die eigentliche Spectrum Scale Instanz heruntergefahren oder nicht erreichbar ist.
+Das Aufsetzen der Lösung im Labor ist nicht notwendig, da die Rechenleistung eines normalen Bürodesktops ausreicht, um die Demo darzustellen. Zudem kann die Demo auch vorgeführt werden, wenn die eigentliche IBM Spectrum Scale Instanz heruntergefahren oder nicht erreichbar ist.
 
 \subsection{Ausblick für zukünftige Entwicklungen}
 In dem aktuellen Aufbau werden keine wirklichen Anwendungen in der privaten Komponente ausgeführt, was aber ohne weiteres möglich wäre. Es könnten zum Beispiel auf einzelnen Knoten des GPFS-Clusters eigene Anwendungen laufen, die Daten konsumieren und produzieren. Diese könnten dann immer zu einem festen Zeitpunkt in \ac{COS} synchronisiert und dort weiter analysiert werden.
-Analysierte Bilder werden aktuell mit Metadaten von der Cloudanwendung bereichert, die aber ansonsten noch keine Verwendung finden. Diese könnten ebenfalls wieder auf der Scale Seite Weiterverwendung anstoßen. 
+Analysierte Bilder werden aktuell mit Metadaten von der Cloudanwendung bereichert, die aber ansonsten noch keine Verwendung finden. Diese könnten ebenfalls wieder auf der IBM Spectrum Scale Seite Weiterverwendung finden. 
 
 Ebenfalls lässt sich die Cloudanwendung noch beliebig erweitern. Es könnten weitere Analysedienste verwendet oder eine komplett andere Anwendung eingesetzt werden.
 
-Die einzelnen Komponente dieser Arbeit (Spectrum Scale Abbild, Demo-Express-Server, Demofrontend) sind so gestaltet, dass sie auch einzelnen weiterverwendet werden können. Scale kann zum Beispiel auch mithilfe anderer Objektspeicher verwendet werden oder es kann statt Cloud-Sharing Cloud-Tiering zum Auslagern der Daten verwendet werden.
+Die einzelnen Komponente dieser Arbeit (IBM Spectrum Scale Abbild, Demo-Express-Server, Demofrontend) sind so gestaltet, dass sie auch einzeln weiterverwendet werden können. Das Clusterspeichersystem kann zum Beispiel auch mithilfe anderer Objektspeicher verwendet werden oder es kann statt Cloud Data Sharing Cloud Tiering zum Auslagern der Daten verwendet werden.
 
-Alles in allem erfüllt die Demo ihre Aufgabe, Möglichkeiten eines Hybrid-Cloud Setups zu zeigen und somit Entwicklungen für neue Kunden zu inspirieren oder vorzuführen. 
+Alles in allem erfüllt die Demo ihre Aufgabe, Möglichkeiten eines Hybrid-Cloud Setups zu zeigen und somit Entwicklungen für andere Projekte zu inspirieren. 

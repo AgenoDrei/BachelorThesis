@@ -1,4 +1,4 @@
-Nach erfolgreicher Einrichtung einer Cloud Node im Spectrum Scale Cluster, kann diese nun mit unterschiedlichen Cloud Speichern verbunden werden.
+Nach erfolgreicher Einrichtung einer Cloud Node im IBM Spectrum Scale Cluster, kann diese nun mit unterschiedlichen Cloud Speichern verbunden werden.
 
 Bei der Einrichtung wird davon ausgegangen, dass folgende Einstellungen vorgenommen wurden:
 \begin{itemize}
@@ -8,9 +8,9 @@ Bei der Einrichtung wird davon ausgegangen, dass folgende Einstellungen vorgenom
 	\item Name des Cloud-Dateisystems: \textbf{fs1}
 \end{itemize}
 
-Nach Hochfahren des Clusters kann mit \lstinline|mmhealth node show|, der Status der unterschiedlichen Dienste untersucht werden. Auf einer einzelnen Maschine kann es aber einige Minuten bauen, bis Scale vollständig hochgefahren ist.
+Nach Hochfahren des Clusters kann mit \lstinline|mmhealth node show|, der Status der unterschiedlichen Dienste untersucht werden. Auf einer einzelnen Maschine kann es aber einige Minuten dauern, bis die Software vollständig hochgefahren ist.
 
-Um den Zustand des Cloud Dienstes zu inspizieren, mit ihm zu arbeiten (Datei Sharing / Tiering) oder ihn zu verändern wird das \lstinline|mmcloudgateway| Programm verwendet. Falls dieser nicht automatisch beim Systemstart initialisiert wird, kann er mithilfe von \lstinline|mmcloudgateway service start -N TCTNodeClass| manuell gestartet werden.
+Um den Zustand des Cloud Dienstes zu inspizieren, mit ihm zu arbeiten (Data Sharing / Cloud Tiering) oder ihn zu verändern wird das \lstinline|mmcloudgateway| Programm verwendet. Falls dieses nicht automatisch beim Systemstart initialisiert wird, kann es mithilfe von \lstinline|mmcloudgateway service start -N TCTNodeClass| manuell gestartet werden.
 
 \begin{figure}[hbt]
 	\centering
@@ -20,19 +20,19 @@ Um den Zustand des Cloud Dienstes zu inspizieren, mit ihm zu arbeiten (Datei Sha
 \end{figure}
 
 
-\textbf{Einrichtung des Cloud Sharing Accounts}\\
-Nun muss zuerst die S3 Verbindung mit \ac{COS} hergestellt werden. Dafür sollte ein Test der Account Daten im Vorhinhein stattfinden, um spätere Probleme bei der Einrichtung verhindern.
+\textbf{Einrichtung des Cloud Data Sharing Accounts}\\
+Als erstes muss die S3 Verbindung mit \ac{COS} hergestellt werden. Dafür sollte ein Verbindungstest der Account Daten im Vorhinein stattfinden, um spätere Probleme bei der Einrichtung zu verhindern.
 
 Ein IBM Cloud Object Storage Account auf Softlayer kann unter dieser URL \url{https://www.ibm.com/cloud-computing/bluemix/cloud-object-storage} eingerichtet werden. 
 
-Nach erfolgreicher Erstellung kann ein erster Bucket erstellt und Nutzername, Adresse des Endpunkts und Passwort ausgelesen werden. Hierbei gibt es Unterschiede bei der Befehl Syntax zwischen Spectrum Scale und \ac{COS}. 
-Der Nutzername wird bei S3 kompatiblen Schnittstellen normalerweise als \textit{AccessKeyId} und das Passwort als \textit{SecretAccessKey} bezeichnet.\\
+Anschließend kann ein erster Bucket erstellt und Nutzername, Adresse des Endpunkts und Passwort von der Webseite ausgelesen werden. Hierbei gibt es Unterschiede bei der Befehlssyntax zwischen IBM Spectrum Scale und \ac{COS}. 
+Der Nutzername wird bei S3 kompatiblen Schnittstellen normalerweise als \textit{AccessKeyId} und das Passwort als \textit{SecretAccessKey} bezeichnet. Bei IBM Spectrum Scale muss der \textit{SecretAccessKey} in eine Passwortdatei gespeichert und der \textit{AccessKeyId} als Nutzername (Username) übergeben werden.\\
 
 \begin{lstlisting}[language=bash, caption=Vortest des Cloud Sharing Accounts]
 mmcloudgateway account pre-test --cloud-type cleversafe-new --username "<username>" --pwd-file <path/file/your/secretAccessKey> --cloud-url <cos/endpoint>
 \end{lstlisting}
 
-Nach Ausführung wird eine Testverbindung aufgebaut, entstehen keine Fehlermeldungen kann nun der Account eingerichtet werden. An dieser Stelle ist es extrem wichtig, dass die Option \lstinline|--enc-enable| auf \lstinline|FALSE| gesetzt wird. Ansonsten kann das beabsichtigte Cloud Sharing nicht umgesetzt werden, da beim Export eine Dateiverschlüsselung stattfindet. Diese macht das Lesen der Informationen von anderen Anwendungen (hier unsere Demoanwendung) unmöglich.
+Nach Ausführung obigen Befehls wird eine Testverbindung aufgebaut. Funktioniert dies fehlerfrei kann nun der Account eingerichtet werden. An dieser Stelle ist es extrem wichtig, dass die Option \lstinline|--enc-enable| auf \lstinline|FALSE| gesetzt wird. Ansonsten kann das beabsichtigte Cloud Data Sharing nicht umgesetzt werden, da beim Export eine Dateiverschlüsselung stattfindet. Diese macht das Lesen der Informationen von anderen Anwendungen (hier unsere Demoanwendung) unmöglich.
 
 Die Befehlssyntax benötigt an dieser Stelle aber noch weitere Informationen, die für den Test nicht notwendig waren:\\
 
@@ -40,14 +40,14 @@ Die Befehlssyntax benötigt an dieser Stelle aber noch weitere Informationen, di
 mmcloudgateway account create --cloud-nodeclass TCTNodeClass --cloud-name mcstore --cloud-type cleversafe-new --username "<username>" --pwd-file <path/file/your/secretAccessKey> --enable TRUE --cloud-url <cos/endpoint> --enc-enable FALSE
 \end{lstlisting}
 
-Nach erfolgreicher Ausführung des Befehls ist der Account fertig eingerichtet und man sollte folgende Ausgabe (\autoref{fig:saclestatus}) bei dem Überprüfen des Cloud Services sehen.
+Nach erfolgreicher Ausführung des Befehls ist der Account fertig eingerichtet und man sollte die in \autoref{fig:saclestatus} gezeigte Ausgabe beim Überprüfen des Cloud Services sehen.
 
 \textbf{Export von lokalen Dateien in die Cloud}\\
 Um Informationen in den konfigurierten Cloud Account zu exportieren, muss zuerst in das ausgewählte Datei System für die Cloud Knoten gewechselt werden (hier: \lstinline|cd /gpfs/fs1|).
 
 Mit dem bereits bekannten \lstinline|mmcloudgateway| Befehl können nun einzelne oder mehrere Dateien zwischen \ac{COS} und der lokalen Maschine kopiert werden.
 
-Es besteht die Möglichkeit, Metadaten beim Sharing zu erhalten und alle exportierten Files in einem Manifest festzuhalten. Dieses hilft beim späteren Import, da eine Liste aller exportierten Dateien vorliegt. 
+Es besteht die Möglichkeit, Metadaten beim Data Sharing zu erhalten und alle exportierten Dateien in einem Manifest festzuhalten. Dieses hilft beim späteren Import, da eine Liste aller exportierten Dateien vorliegt. 
 
 \begin{lstlisting}[language=bash, caption=Export von lokalen Dateien]
 mmcloudgateway files export <path/to/file> --manifest-file manifest.txt --export-metadata
@@ -59,11 +59,11 @@ mmcloudgateway files import <fileKey> --import-metadata
 
 Weitere Informationen hierzu befinden sich in \cite[S. 613]{scale.2017}.
 
-\textbf{Erweiterung der Spectrum Scale Funktionalität}\\
-Da Spectrum Scale keinerlei Kontrolle über die geteilten Daten hat, wird es auch nicht über mögliche neue Dateien informiert. Diese können also nativ nicht wieder importiert werden, da keine Informationen vorliegen.
+\textbf{Erweiterung der IBM Spectrum Scale Funktionalität}\\
+Da IBM Spectrum Scale keinerlei Kontrolle über die geteilten Daten hat, wird es auch nicht über mögliche neue Dateien informiert. Diese können also nativ nicht wieder importiert werden.
 
-Um dies zu umgehen, gibt es zwei Möglichkeiten: Es kann ein kleiner Webserver auf einem Spectrum Scale Knoten aufgesetzt werden, der von außen über Änderungen informiert wird und diese dann in das Manifest schreibt. Nachteil an dieser Lösung ist, dass zusätzliche Software für Scale entwicklet werden muss und diese auch immer nur auf einem Knoten läuft, was zu Leistungsengpässen führen kann.
+Um dies zu umgehen, gibt es zwei Möglichkeiten: Es kann ein kleiner Webserver auf einem IBM Spectrum Scale Knoten aufgesetzt werden, der von außen über Änderungen informiert wird und diese dann in das Manifest schreibt. Nachteil an dieser Lösung ist, dass zusätzliche Software für den Cluster entwicklet werden muss und diese auch immer nur auf einem Knoten läuft, was zu Leistungsengpässen führen kann.
 
-Alternativ kann die Manifest Datei auch mit in den Cloudspeicher hochgeladen werden. Von hier kann eine Aktualisierung durch die Cloudanwendung (\autoref{sec:application}) geschehen, jedes Mal wenn neue Daten hinzugefügt werden. Spectrum Scale kann nun immer als erstes die Manifest Datei wieder importieren und bekommt mit dieser dann Information über die Dateiveränderung.
+Alternativ kann die Manifest Datei auch mit in den Cloudspeicher hochgeladen werden. Von hier kann eine Aktualisierung durch die Cloudanwendung (\autoref{sec:application}) geschehen, jedes Mal wenn neue Daten hinzugefügt werden. IBM Spectrum Scale kann nun immer als erstes die Manifest Datei wieder importieren und bekommt mit dieser dann Informationen über Dateiveränderungen.
 
-Offensichtlich ist zweite Lösung besser, da keine Veränderung am Cluster vorgenommen werden muss.
+Offensichtlich ist die zweite Lösung besser, da keine Veränderung am Cluster vorgenommen werden muss.

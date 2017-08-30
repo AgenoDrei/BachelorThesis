@@ -1,4 +1,4 @@
-Das Szenario der \textit{CloudTieringDemo} zeigt, wie eine grafische webbasierte Schnittstelle für \ac{COS} erzeugt werden kann, die zusätzlich die Analyse von hoch geladenen Bildern ermöglicht. Das Aufsetzen des notwendigen Spectrum Scale Clustern wurde hierbei in den vorherigen Abschnitten beschrieben.
+Das Szenario der \textit{CloudTieringDemo} zeigt, wie eine grafische, webbasierte Schnittstelle für \ac{COS} erzeugt werden kann, die zusätzlich die Analyse von hoch geladenen Bildern ermöglicht. Das Aufsetzen des notwendigen Spectrum Scale Clustern wurde hierbei in den vorherigen Abschnitten beschrieben.
 Dieser Teil der Beschreibung umfasst das Entwickeln der Cloudanwendung, Aufsetzen und Einrichten auf Bluemix mithilfe einer \ac{CD}-Pipeline und \gls{Git} zur Versionsverwaltung. Anhand dieses Beispieles sollen die Möglichkeit der Kombination verschiedener Dienste verdeutlicht und eine wiederverwendbare Architektur erzeugt werden. Diese kann dann in anderen Projekten als Schnellstart dienen.
 
 \begin{center}
@@ -6,11 +6,11 @@ Dieser Teil der Beschreibung umfasst das Entwickeln der Cloudanwendung, Aufsetze
 \end{center}
 
 \subsection{Architektur der Anwendung}
-An dieser Stelle werden die wichtigsten Teile der Anwendung untersucht, visualisiert und in ein Verhältnis zueinander gestellt. Dafür werden Kontext-, Operations- und Klassendiagramme zur Verfügung gezeigt und erläutert.
+An dieser Stelle werden die wichtigsten Teile der Anwendung untersucht, visualisiert und in ein Verhältnis zueinander gestellt. Dafür werden Kontext-, Operations- und Klassendiagramme gezeigt und erläutert.
 
 Die auf Bluemix laufende Anwendung besteht aus mehreren Komponenten für Frontend und Backend. Auf der einen Seite gibt es einen auf Node.js basierenden Anwendungsserver, der die eigentliche Logik der Anwendung kapselt und mithilfe einer \gls{REST}-Schnittstelle verschiedene Dienste bereitstellt.
 
-Wie in \autoref{fig:democontextdiagram} zu sehen ist, kommuniziert die Anwendung mit zwei externen Ressourcen. Eine von diesen ist der Spectrum Scale Cluster angebunden an den \ac{COS} mithilfe von Cloud Sharing und die andere ist die Deep Learning Software zur Bildanalyse von IBM Watson.
+Wie in \autoref{fig:demoarchitectureoverview} zu sehen ist, kommuniziert die Anwendung mit zwei externen Ressourcen. Eine von diesen ist der Spectrum Scale Cluster angebunden an den \ac{COS} mithilfe von Cloud Sharing und die andere ist die Deep Learning Software zur Bildanalyse von IBM Watson.
 
 \begin{figure}[hbt]
 	\centering
@@ -19,7 +19,7 @@ Wie in \autoref{fig:democontextdiagram} zu sehen ist, kommuniziert die Anwendung
 	\label{fig:democontextdiagram}
 \end{figure}
 
-In \autoref{fig:demosequenzdiagram} sieht man eine typische Aktionssequenz, ausgelöst durch einen Nutzeraktion. Der hier dargestellte Hochladeprozess kann stellvertretend für alle Aktionen zwischen Client (Internetbrowser des Nutzers) und \ac{COS} betrachtet werden.
+In \autoref{fig:demosequenzdiagram} sieht man eine typische Aktionssequenz, ausgelöst durch einen Nutzer. Der hier dargestellte Hochladeprozess kann stellvertretend für alle Aktionen zwischen Client (Internetbrowser des Nutzers) und \ac{COS} betrachtet werden.
 Zuerst wird ein asynchroner Request an den Node.js Applikationsserver gestellt, dieser erzeugt einen Request für den \ac{COS}-Server und sendet danach die Daten bzw. eine Bestätigung des Uploads an den Nutzer.
 Beim Scheitern der Anfrage wird eine entsprechende Fehlermeldung an den Browser gesendet.
 
@@ -47,21 +47,21 @@ Der mit Node.js und Express laufende Server implementiert eine leicht abgeänder
 	\item \textbf{app.js}:\\
 	Die Hauptdatei des Servers, die beim Starten ausgeführt wird. Hier werden notwendige Pakete initialisiert, weitergereicht und der Webserver konfiguriert.
 	\item \textbf{controller/}:\\
-	Die REST-Controller der Anwendung. Werden ausgeführt, wenn bestimmte ULRs aufgerufen wurden und delegieren Aufgaben an die Anwendungslogik. Sie übernehmen die gesamte Kommunikation mit der Frontendanwendung (Auslieferung von HTML-Inhalten oder REST-Antworten) und sorgen für eine einheitliche Formatierung der Antworten.
+	Die REST-Controller der Anwendung werden ausgeführt, wenn bestimmte ULRs aufgerufen wurden und delegieren Aufgaben an die Anwendungslogik. Sie übernehmen die gesamte Kommunikation mit der Frontendanwendung (Auslieferung von HTML-Inhalten oder REST-Antworten) und sorgen für eine einheitliche Formatierung der Antworten.
 	\item \textbf{services/}:\\
 	An dieser Stelle findet die gesamte Anwendungslogik und Datenmodellveränderung statt. Anfragen an \ac{COS} für den Datenaustausch starten hier, ebenso wie die Kommunikation mit anderen Diensten.
 	Dedizierte Service Klassen können an jeden Controller übergeben werden und sind somit an verschiedenen Stelle der Anwendung benutzbar.
 	\item \textbf{views/ und public/}:\\
-	Im \textit{views/-Ordner} liegen alle Vorlagen für die HTML-Inhalte zur Auslieferung an das Frontend. Da im \ac{UI} auch Logik und Styling verwendet werden soll, liegen alle, von den HTML-Seiten verwendeten Skripte und Stylesheets, im \textit{public/-Ordner}.
+	Im \textit{views/-Ordner} liegen alle Vorlagen für die HTML-Inhalte zur Auslieferung an das Frontend. Da im \ac{UI} auch Logik und Styling verwendet werden sollen, liegen alle von den HTML-Seiten verwendeten Skripte und Stylesheets im \textit{public/-Ordner}.
 	Diese sind aufgeteilt in Javascript-, CSS- und Bilddateien.
 	\item \textbf{Sonstige Ordner und Dateien}:\\
 	Zusätzlich gibt es noch eine Paketbeschreibung (\autoref{tab:npmpackages}) in der \textit{package.json} mit dem \textit{node\_modules/-Ordner} für die tatsächlichen Module und einen \textit{config/-Verzeichnis} für Einstellungen der Anwendung. Für das temporäre Speichern von Dateien wird der \textit{file\_cache/-Ordner} verwendet.
 \end{itemize}
 
-In der Implementierungsbeschreibung wird das Aufsetzen einer typischen Ablaufsequenz, inklusive aller anzupassenden Dateien, demonstriert.\\
+Im \autoref{subsec:implementation} wird das Aufsetzen einer typischen Ablaufsequenz, inklusive aller anzupassenden Dateien, umgesetzt.\\
 
 \textbf{Frontend}\\
-Wie oben beschrieben, existieren ebenfalls einige Dateien für das Frontend. Sie sorgen dafür, dass eine dynamische, anpassungsfähige und ästhetische Benutzung des Interface möglich ist.
+Wie oben beschrieben, existieren ebenfalls einige Dateien für das Frontend. Sie sorgen dafür, dass eine dynamische, anpassungsfähige und ästhetische Benutzung des Interfaces möglich ist.
 
 Dies setzt natürlich auch eine gewisse Architektur voraus, die eine leichte Erweiterbarkeit ermöglicht. Somit liegt im Frontend folgende Ordnerstruktur vor:
 
@@ -70,23 +70,23 @@ Dies setzt natürlich auch eine gewisse Architektur voraus, die eine leichte Erw
 	\item \textbf{public/}
 	\begin{itemize}
 		\item \textbf{css/}:\\
-		Hier liegt ein generelles Stylesheet (\textit{style.css}) für alle Seiten und spezialisierte Dateien für jede einzelne View.
+		Hier liegt ein generelles Stylesheet (\textit{style.css}) für alle Seiten und spezialisierte Dateien für jede einzelne Ansicht.
 		\item \textbf{img/}:\\
 		Ein Speicherort für alle Bilddateien, die im Frontend verwendet werden
 		\item \textbf{js/}:\\
 		Das Wurzelverzeichnis für alle Javascriptdateien, die für die Logik der \ac{UI} benutzt werden. Auf der obersten Eben liegen dedizierte Skripts, die beim Ausführen der Seite ausgeführt werden.
 		\begin{itemize}
 			\item \textbf{controller/}:\\
-			Controller, die Veränderung an der HTML-Datei auslösen und dynamische Änderungen, ohne Neuladen der Seite, erzeugen können 
+			Controller, die Veränderungen an der HTML-Datei auslösen und dynamische Änderungen, ohne Neuladen der Seite, erzeugen können 
 			\item \textbf{services/}:\\
 			Bestimmte Dienste sind hier angelegt, zum Beispiel die \gls{AJAX}-Kommunikation mit dem Backend. Sie sind von überall erreichbar und bieten verschiedene statische Methoden. Vergleichbar mit den serverseitigen Services.
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
 
-Das Frontend spielt in dieser Anwendung eine untergeordnete Rolle (im Sinne eines schwachen Klienten) und es wird auch bei der Implementierungsbeschreibung hauptsächlich Wert auf die Serverstrukturen gelegt. Theoretisch kann die bestehende \ac{UI} leicht durch eine andere ausgewechselt werden, da nur eine lose Kopplung durch die \gls{REST}-API besteht.
+Das Frontend spielt in dieser Anwendung eine untergeordnete Rolle (im Sinne eines Thin-Client) und es wird auch bei der Implementierungsbeschreibung hauptsächlich Wert auf die Serverstrukturen gelegt. Theoretisch kann die bestehende \ac{UI} leicht durch eine andere ausgewechselt werden, da nur eine lose Kopplung durch die \gls{REST}-API besteht.
 
-\subsection{Implementierung}
+\subsection{Implementierung}\label{subsec:implementation}
 
 Bevor die Implementierung gestartet werden kann, sollten einige Grundvoraussetzungen erfüllt sein:
 
@@ -98,21 +98,21 @@ Bevor die Implementierung gestartet werden kann, sollten einige Grundvoraussetzu
 	\item \gls{Git}
 \end{itemize}
 
-Um diese Voraussetzungen zu erreichen, existiert eine umfangreiche Dokumentation in folgender Quelle: \cite[S. 129]{Rios.2017}.
+Um diese Voraussetzungen zu erfüllen, existiert eine umfangreiche Dokumentation in folgender Quelle: \cite[S. 129]{Rios.2017}.
 
 An dieser Stelle wird nur grob auf das Setup eingegangen und mehr auf die eigentliche Implementierung fokussiert.
 
-Nach erfolgreichen Anlegen der Benutzeraccounts und Installation der lokalen Tools, kann die Cloud Foundry-Anwendung angelegt werden. Hierzu muss zuerst die Anmeldung auf Bluemix erfolgen und die Navigation auf das Dashboard. Hier können neue Applikationen erzeugt werden. In unserem Anwendungsfall wird die Node.js Laufzeit Umgebung erzeugt, es muss nur ein eindeutiger Name für die App und die URL-Route ausgewählt werden.
+Nach erfolgreichem Anlegen der Benutzeraccounts und Installation der lokalen Tools kann die Cloud Foundry-Anwendung angelegt werden. Hierzu muss zuerst die Anmeldung auf Bluemix erfolgen und die Navigation auf das Dashboard. Hier können neue Applikationen erzeugt werden. In unserem Anwendungsfall wird die Node.js Laufzeit Umgebung erzeugt, es muss nur ein eindeutiger Name für die App und die URL-Route ausgewählt werden.
 
 Innerhalb weniger Momente sollte eine einfache Basisanwendung erreichbar sein. Um den Quellcode bearbeiten zu können, kann dieser entweder mit dem Bluemix Kommandozeilen Tool heruntergeladen oder ein Git-Verzeichnis erzeugt werden. Zweites ist wesentlich mächtiger, da sowohl eine vollständige Versionsverwaltung wie auch eine \ac{CD}-Pipeline zur Verfügung steht. Um sie zu erzeugen, muss im Dashboard die neue Anwendung ausgewählt und eine neue Toolchain erstellt werden. Es steht nun eine GitLab Umgebung und eine Standard konfigurierte Pipeline zur Verfügung.
 
-Durch die normale Einstellung der Toolchain werden automatisch Git-Commits auf den \textit{master}-Zweig auf Bluemix deployed. Wenn ein Projekt mehreren Beitragenden hat, sollte dieses Verhalten verändert werden.
+Durch die normale Einstellung der Toolchain werden automatisch Git-Commits auf den \textit{master}-Zweig auf Bluemix angewendet. Wenn ein Projekt kompliziertet ist oder mehrere Beteiligte hat, sollte dieses Verhalten verändert werden.
 
 Mithilfe von \gls{Git} kann nun der Starter-Code heruntergeladen und für diesen Nutzungsfall angepasst werden.
 
 Zuerst sollte die oben beschriebene Ordnerstruktur erzeugt und alle NPM-Abhängigkeiten installiert werden:
 
-\begin{lstlisting}[language=bash, caption=Paket Installation und package.json erzeugung]
+\begin{lstlisting}[language=bash, caption=Paket Installation und package.json Erzeugung]
 npm install aws-sdk body-parser bootstrap cfenv ejs express filesize jquery moment morgan multer promise toastr watson-developer-cloud --save
 \end{lstlisting}
 
@@ -148,7 +148,7 @@ app.use('/', require('./controller/viewCtrl')());
 app.listen(cfenv.getAppEnv().port, '0.0.0.0', function() { ... });
 \end{lstlisting}
 
-Im ersten Teil werden alle Abhängigkeiten der Anwendung geladen. Dies ist wichtig, damit keine mehrfache Initialisierung von bestimmten Modulen in der Anwendung stattfindet. Im nächsten Teil wird express mit verschiedener Middleware kombiniert und die statischen Ordner für Dateiauslieferung definiert. Für diese agiert express dann wie ein klassischer Dateiserver.
+Im ersten Teil werden alle Abhängigkeiten der Anwendung geladen. Dies ist wichtig, damit keine mehrfache Initialisierung von bestimmten Modulen in der Anwendung stattfindet. Im nächsten Teil wird express mit verschiedener Middleware kombiniert und die statischen Ordner zur Dateiauslieferung definiert. Für diese agiert express dann wie ein klassischer Dateiserver.
 Im nächsten Schritt werden alle vom Nutzer definierten Dienste erstellt. Diese können dann im nächsten Abschnitt an die Controller weitergereicht werden, sofern Bedarf besteht.
 Es gibt genau einen \lstinline|viewCtrl|, der zur Auslieferung der HTML-Vorlagen verwendet wird. Für jede neue Seite der \ac{UI} muss hier eine weitere GET-Route angelegt werden, die aus dem korrespondierenden EJS-Template das HTML generiert.
 EJS ist hierbei ein Vorlagensprache, die Inline-Javascript ermöglicht und die Erzeugung von HTML-Seiten erleichtert.
@@ -156,7 +156,7 @@ EJS ist hierbei ein Vorlagensprache, die Inline-Javascript ermöglicht und die E
 Alle anderen Controller dienen zum Definieren der REST-Schnittstelle der Anwendung (zum Beispiel der \lstinline|cosCtrl|). Im letzten Teil der \textit{app.js} wird der HTTP-Server gestartet und aus den Bluemix-Umgebungsvariabeln der Port ausgelesen. Lokal wird hierbei einfach ein freier Port verwendet.\\
 
 \textbf{Erzeugung eine REST-Schnittstellen Funktion}\\
-An dieser Stelle betrachten wir die Implementierung der REST-Schnittstelle zum Löschen von Dokumenten in der \ac{COS}-Dateispeichersystem. Dieses kann als exemplarisch betrachtet werden, da nach den gleichen Entwicklungsmuster auch alle anderen API-Funktionen der Anwendung umgesetzt wurden. 
+An dieser Stelle betrachten wir die Implementierung der REST-Schnittstelle zum Löschen von Dokumenten in \ac{COS}-Dateispeichersystem. Dieses kann als exemplarisch betrachtet werden, da nach dem gleichen Entwicklungsmuster auch alle anderen API-Funktionen der Anwendung umgesetzt wurden. 
 
 An erster Stelle muss der Controller erstellt werden, hierfür wird die Router Middleware von express verwendet. Mithilfe von dieser können logisch zusammenhängende URL-Routen innerhalb einzelner Module gegliedert werden. Das Löschen von Objekten wird hier in den \lstinline|CosCtrl| eingeordnet, der sämtliche direkte Interaktionen mit dem Dateispeicher verwaltet:\\
 
@@ -182,11 +182,11 @@ module.exports = function(cosService) {
 }
 \end{lstlisting}
 
-In den ersten beiden Zeilen wird der hier verwendete Router importiert. Zeile 3 definiert die Initalisierungsfunktion des Moduls, indem auch der hier verwendete \lstinline|cosService| übergeben wird.
+In den ersten beiden Zeilen wird der hier verwendete Router importiert. In der folgenden Zeile definiert die Initalisierungsfunktion das Moduls, in dem auch der hier verwendete \lstinline|cosService| übergeben wird.
 
 Der nächste Block definiert nun die eigentliche Route: Diese verarbeitet nur DELETE HTTP Anfragen, die auf eine spezielle Route gemappt werden. Sofern die Basis-URL übereinstimmt, wird jeder Dateischlüssel (\lstinline|:id*|) angenommen. Der Schlüssel wird als nächstes ausgelesen und die entsprechende Servicefunktion übergeben. Deren Funktionsweise wird nach diesem Controller erklärt.
 
-Da \gls{Promise}s Verwendung finden, kann eine der beiden definierten Funktionen, abhängig vom Ergebnis des Nutzerdienstes, aufgerufen werden. Die erste erzeugt eine Antwort für den Klienten und übergibt die Bestätigung von \ac{COS}. Im Fehlerfall wird ein HTTP Errorcode und der entstandene Fehler zurückgesendet.
+Da \gls{Promise}s Verwendung finden, kann eine der beiden definierten Funktionen abhängig vom Ergebnis des Nutzerdienstes aufgerufen werden. Die erste erzeugt eine Antwort für den Klienten und übergibt die später generierte Bestätigung von \ac{COS}. Im Fehlerfall wird ein HTTP Errorcode und der entstandene Fehler zurückgesendet.
 
 Um das Modul nutzbar zu machen, muss jetzt nur noch der Service definiert werden:\\
 
@@ -221,9 +221,9 @@ Zu Beginn werden wieder notwendige externe Module importiert und die Initialisie
 
 Mithilfe dieser wird der \ac{S3}-Klient und der richtige Bucket für die Anwendung erzeugt. 
 
-In der eigentlich Funktion wird ein Promise-Wrapper erzeugt zum Ansprechen der relevante S3-API. Das Ergebnis wird über die Promise-Funktionen zurückgegeben.
+In der eigentlichen Funktion wird ein Promise-Wrapper zum Ansprechen der relevante S3-API erzeugt. Das Ergebnis wird über die Promise-Funktionen zurückgegeben.
 
-Als letztes müssen nun nur noch der Service in der \lstinline|app.js| erstellt werden und an den Router übergeben. Danach kann der gestartete Server mit der neuen REST-URL angesprochen werden:\\
+Als letztes müssen nun nur noch der Service in der \lstinline|app.js| erstellt und an den Router übergeben werden. Danach kann der gestartete Server mit der neuen REST-URL angesprochen werden:\\
 
 \begin{lstlisting}[language=JavaScript, caption=Einbindung der neuen Route in der app.js]
 const cosService = require('./services/cosService')(config);
@@ -231,7 +231,7 @@ app.use('/api/v1', require('./controller/cosCtrl')(cosService));
 \end{lstlisting}
 
 \textbf{Erzeugung einer Frontend-Seite mit Backend Anbindung über AJAX}\\
-Für die graphische Repräsentation existiert ebenfalls ein Arbeitsablauf: Zuerst muss eine EJS-Vorlage erstellt werden. Bei dieser handelt es sich, um eine erweiterte HTML-Datei. Es können, ähnlich wie bei PHP, andere Dateien (hier ein Header) eingebunden und die Sprache mit dynamischen Variablen erweitert werden.
+Für die graphische Repräsentation existiert ebenfalls ein Arbeitsablauf: Zuerst muss eine EJS-Vorlage erstellt werden. Bei dieser handelt es sich, um eine erweiterte HTML-Datei. Es können ähnlich wie bei PHP andere Dateien (hier ein Header) eingebunden und die Sprache mit dynamischen Variablen erweitert werden.
 
 Die neue Route muss im \lstinline|ViewCtrl| des Backends festgelegt werden:\\
 
@@ -260,7 +260,7 @@ let submitFile = function() {
 $( document ).ready(main);
 \end{lstlisting}
 
-Nachdem das Dokument geladen wurde wird zuerst die \lstinline|main|-Funktion ausgeführt und der Controller für die Seite erstellt. Die hier angedeutete \lstinline|submitFile|-Routine sendet einen POST-Request zum Server mit der angehängten Datei. Beim Erfolg der Routine gibt der \lstinline|FileUploadCtrl| ein positives Feedback im Frontend:\\
+Nachdem das Dokument geladen wurde, wird zuerst die \lstinline|main|-Funktion ausgeführt und der Controller für die Seite erstellt. Die hier angedeutete \lstinline|submitFile|-Routine sendet einen POST-Request zum Server mit der angehängten Datei. Beim Erfolg der Routine gibt der \lstinline|FileUploadCtrl| ein positives Feedback an das Frontend:\\
 
 \begin{lstlisting}[language=JavaScript, caption=Initalisierungsfunktion der Uploadseite in der fileUpload.js]
 class FileUploadCtrl {
@@ -282,4 +282,4 @@ class FileUploadCtrl {
 
 Hier wird ein Toast erzeugt für den Erfolgs- oder Fehlerfall. Bei Erzeugung des Controllers wird die Navigation aktualisiert und der Tab auf aktiv gesetzt.
 
-Bei anderen Seiten werden auch Services verwendet, die aber ungefähr den selben Aufbau, wie im Backend besitzen und hier nicht genauer erwähnt werden müssen. Sie stellen nur eine weitere Schicht, um die JQuery \gls{AJAX}-Schnittstelle dar.
+Bei anderen Seiten werden auch Services verwendet, die aber ungefähr denselben Aufbau wie im Backend besitzen und hier nicht genauer erwähnt werden müssen. Sie stellen nur eine weitere Schicht um die JQuery \gls{AJAX}-Schnittstelle dar.

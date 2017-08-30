@@ -1,11 +1,11 @@
 \chapter{Umsetzung und Ergebnisse}\label{ch:realization}
 
-In diesem Kapitel wird die Umsetzung einer typischen Hybrid Cloudanwendung betrachtet. 
+In diesem Kapitel wird die Umsetzung einer typischen Hybrid Cloudanwendung beschrieben. 
 
-Auf einem lokalen Rechner wird Spectrum Scale als Cluster-Speicher eingerichtet, was in diesem Aufbau den \gls{On Premise}s Teil der Software darstellt.
-In der öffentlichen Cloud von IBM (Bluemix) wird eine über das Internet zugängliche Anwendung zur Verfügung gestellt, die Zugriff auf die Daten des Clusters gewährt. Als Schnittstelle zwischen dieser Webanwendung und Spectrum Scale wird der \ac{COS} verwendet. Scale kann hier seine lokalen Daten über Cloud Data Sharing exportieren und neue, vom Nutzer erstellte Daten, importieren.
+Auf einem lokalen Rechner wird IBM Spectrum Scale installiert, was in diesem Aufbau den \gls{On Premise}s Teil der Hybrid-Cloud Lösung darstellt.
+In der öffentlichen Cloud von IBM (Bluemix) wird eine über das Internet zugängliche Anwendung zur Verfügung gestellt, die Zugriff auf die Daten des Clusters gewährt. Als Schnittstelle zwischen dieser Webanwendung und IBM Spectrum Scale wird \ac{COS} verwendet. Das Clusterspeichersystem kann hier seine lokalen Daten über Cloud Data Sharing exportieren und neue, vom Nutzer erstellte Daten, importieren.
 
-An dieser Stelle wird besonders Wert darauf gelegt, dass die beschrieben Schritte nachvollziehbar und nachbildbar dargestellt werden. Es wird also nicht nur ein Fokus auf die Ergebnisse gelegt, sondern auch auf die verwendeten Techniken und das allgemeine Vorgehen.
+An dieser Stelle wird besonderen Wert darauf gelegt, dass die beschrieben Schritte nachvollziehbar und nachbildbar dargestellt werden. Es wird also nicht nur ein Fokus auf die Ergebnisse gelegt, sondern auch auf die verwendeten Techniken und das allgemeine Vorgehen.
 
 \begin{figure}[hbt]
 	\centering
@@ -14,9 +14,9 @@ An dieser Stelle wird besonders Wert darauf gelegt, dass die beschrieben Schritt
 	\label{fig:demoarchitectureoverview}
 \end{figure}
 
-Der beschrieben Aufbau wird in \autoref{fig:demoarchitectureoverview} noch einmal mit den verwendeten Technologien visualisiert. 
+Der beschriebene Aufbau wird in \autoref{fig:demoarchitectureoverview} noch einmal mit den verwendeten Technologien visualisiert. 
 
-\section{Aufsetzen einer Spectrum Scale-Instanz in lokaler Umgebung}
+\section{Aufsetzen einer IBM Spectrum Scale-Instanz in lokaler Umgebung}
 \input{content/scale}
 
 \section{Umsetzung des Cloud Tierings \& Implementierung der Hybrid Cloud-Lösung}

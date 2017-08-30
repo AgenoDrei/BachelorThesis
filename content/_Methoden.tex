@@ -5,22 +5,22 @@ In diesem Kapitel werden notwendige Komponenten der zu entwickelnden Hybrid Clou
 Einschränkungen bei der Wahl von Lösungen sind aufgrund der Umgebung \ref{subsec:enviroment} vorhanden und werden entsprechend hier gekennzeichnet und diskutiert.
 
 \section{Auswahl des verteilten Dateisystems}
-Bei der Wahl des Dateisystems müssen die ursprünglichen Anwendungsszenarien von Hadoop und Spectrum Scale betrachtet werden. 
+Bei der Wahl des Dateisystems müssen die ursprünglichen Anwendungsszenarien von Hadoop und IBM Spectrum Scale betrachtet werden. 
 
-Apache Hadoop soll dafür verwendet werden, Operationen auf möglichst effiziente Weise in einem verteilten System ausführen. \acs{HDFS} stellt hierbei die Speicherkomponente dar und baut auf normalen ext4 Dateisystemen auf. Dies macht insbesondere Sinn, da Hadoop Cluster meistens aus gewöhnlicher Hardware bestehen. Nachteil hiervon ist ein erschwerter Zugriff, da auf das System mit einem speziellen Befehlsset immer von außen zugegriffen und eine Datenveränderung erst innerhalb der geschachtelten Systeme ausgetauscht werden muss.
+Apache Hadoop soll dafür verwendet werden, Operationen auf möglichst effiziente Weise in einem verteilten System ausführen. \acs{HDFS} stellt hierbei die Speicherkomponente dar und baut auf normalen ext4 Dateisystemen auf. Dies macht insbesondere Sinn, da Hadoop Cluster meistens aus weit verfügbarer Verbraucherhardware bestehen. Nachteil hiervon ist ein erschwerter Zugriff, da auf das System mit einem speziellen Befehlsset immer von außen zugegriffen und eine Datenveränderung erst innerhalb der geschachtelten Systeme ausgetauscht werden muss.
 Hadoop ist Open Source und kann somit kostenlos verwendet werden \parencite{snowflake.2016}. 
 
-Spectrum Scale hingegen war ursprünglich als proprietärer High-Performance Speichersystem für jede Art von Anwendung entworfen worden. Es kann alle mögliche Arten von Storagetypen (\acs{SAN}, \acs{NAS}, \acs{DAS}) anbinden und diese über eine einheitliche Schnittstelle dem Nutzer zur Verfügung stellen. Die verschiedene Hardware kann abgestuft werden, sodass alte oder kalte Daten auf langsame Speicher verschoben oder in die Cloud gespeichert werden.  Durch die \gls{POSIX} Konformität von IBM Spectrum Scale ist ein einfaches Navigieren sämtlicher Dateien im Cluster möglich und Veränderungen werden direkt angewendet \parencite{snowflake.2016}.
+IBM Spectrum Scale hingegen war ursprünglich als proprietäres High-Performance Speichersystem für jede Art von Anwendung entworfen worden. Alle mögliche Arten von Storagetypen (\acs{SAN}, \acs{NAS}, \acs{DAS}) können angebunden und diese über eine einheitliche Schnittstelle dem Nutzer zur Verfügung gestellt werden. Die verschiedene Hardware kann abgestuft werden, sodass alte oder kalte Daten auf langsame Speicher verschoben oder in der Cloud gespeichert werden.  Durch die \gls{POSIX} Konformität von IBM Spectrum Scale ist ein einfaches Navigieren der Dateien im Cluster möglich und Veränderungen werden direkt angewendet, ohne Umwege über weitere Software \parencite{snowflake.2016}.
 
-Insgesamt gewinnt \acs{GPFS} im Sinne von Performance, da es ein Kernel-Level-Dateisystem ist, auf das wesentlich schneller zugegriffen werden kann. Es existieren Erweiterungen für Cloud Tiering und Sharing, die in dieser Form nicht bei HDFS existieren. Jede Art von Anwendung kann durch \acs{GPFS} profitieren, auch klassische Anwendungen, die nicht in einem verteilten System laufen.
+Insgesamt gewinnt \acs{GPFS} im Sinne von Performance, da es ein Kernel-Level-Dateisystem ist, auf das wesentlich schneller zugegriffen werden kann. Es existieren Erweiterungen für Cloud Tiering und Data Sharing, die in dieser Form nicht bei HDFS existieren. Jede Art von Anwendung kann durch \acs{GPFS} profitieren, auch klassische Anwendungen, die nicht in einem verteilten System laufen.
 
-Außerdem entfallen mögliche Kosten von Spectrum Scale, da diese Arbeit in einer IBM-Abteilung angefertigt wird und somit einfacher Zugriff auf die Software besteht.
+Außerdem entfallen mögliche Kosten von IBM Spectrum Scale, da diese Arbeit in einer IBM-Abteilung angefertigt wird und somit einfacher Zugriff auf die Software besteht.
 
 Aus den oben diskutierten Gründen wird in dieser Arbeit \textbf{IBM Spectrum Scale} verwendet.
 
 \section{Auswahl des Cloud Anbieters}
 
-Bei der Auswahl des Cloudanbieters sind einige Punkte zu beachten. Zum einen sollten \acs{PaaS} Funktionalitäten gegeben sein, damit eine vollständige Anwendung entwickelt und hochgeladen werden kann und zum anderen sollte ein Service vorhanden sein, der als Cloudspeicher mit dem zuvor ausgewählten Spectrum Scale kombinierbar ist.
+Bei der Auswahl des Cloudanbieters sind einige Punkte zu beachten. Zum einen sollten \acs{PaaS} Funktionalitäten gegeben sein, damit eine vollständige Anwendung entwickelt und hochgeladen werden kann und zum anderen sollte ein Service vorhanden sein, der als Cloudspeicher mit dem zuvor ausgewählten IBM Spectrum Scale kombinierbar ist.
 Cloud Tiering und Sharing sind einsetzbar mit allen S3-konformen Objektspeichern \parencite[S. 110]{ibm.2017}. 
 
 Diese beiden Punkte sind bei allen drei Anbietern erfüllt.
@@ -30,9 +30,9 @@ Von der Netzwerkgröße und Verfügbarkeit gewinnt \acs{AWS}, da es die meisten 
 
 Microsoft Azure lässt sich in optimaler Form (ohne das Aufsetzen einer dedizierten \acs{VM}) mit .NET-Laufzeiten benutzen, was die Auswahl der Entwicklungswerkzeuge wesentlich einschränkt.
 
-Bluemix bietet einige DevOps-Features an, die die Entwicklung massiv beschleunigen, das Aufsetzen einer Anwendung auf \acs{AWS} kann sich als komplizierter erweisen.
+Bluemix bietet einige DevOps-Funktionen an, die die Entwicklung massiv beschleunigen, das Aufsetzen einer Anwendung auf \acs{AWS} kann sich als komplizierter erweisen, da Entwicklungshilfen nicht nahtlos integriert sind und erst einzelnen aufgesetzt werden müssen.
 
-Zusätzlich entfallen sämtliche Kosten bei IBM Bluemix, da ein firmeninterner Account genutzt werden kann und auch zusätzliche Kosten für weitere verwendete Dienste entfallen.
+Zusätzlich entfallen sämtliche Kosten bei IBM Bluemix, da ein firmeninterner Account genutzt werden kann und auch keine Kosten für weitere verwendete Dienste anfallen.
 
 Besonders aus letzterem Grund, obwohl AWS oder Azure nicht ungeeigneter sind, wird für die Entwicklung der Demo \textbf{IBM Bluemix} verwendet.
 
@@ -44,13 +44,13 @@ An dieser Stelle wird kurz beschrieben, welche Produkte zur Erstellung der Demoa
 
 Als Entwicklersprache wird node.js Version 7.5.0 verwendet. Node ist eine auf der Javascript Engine V8 von dem Browser Chrome basierende Laufzeitumgebung. Sie verwendet ein nicht blockierendes I/O-Modell, dass besonders gut für parallel auftretende Netzwerkanfragen eingesetzt werden kann. In Kombination mit dieser Sprache wird der \ac{npm} benutzt \parencite{nodejs.2017}.
 
-Zur Erweiterung der Serverfähigkeiten von Node.js wird express verwendet. Dies ist ein Framework zur Entwicklung von Webanwendungen, dass eine Vielzahl nützlicher Middleware unterstützt.
+Zur Erweiterung der Serverfähigkeiten von Node.js wird Express verwendet. Dies ist ein Framework zur Entwicklung von Webanwendungen, das eine Vielzahl nützlicher Middleware unterstützt.
 
-Zur Versionsverwaltung wird \gls{Git} verwendet, auf welches auch die \ac{CD} Pipeline von Bluemix zugreift. Diese lädt den Quellcode aus dem Repository herunter, installiert die notwendigen Abhängigkeiten (Diese werden bei \acs{npm} in einer Paketbeschreibungsdatei hinterlegt: \textit{package.json}) und verschiebt die fertig gebaute Anwendung in das Cloud Foundry Servernetzwerk.  
+Zur Versionsverwaltung wird \gls{Git} verwendet, auf welches auch die \ac{CD} Pipeline von Bluemix zugreift. Diese lädt den Quellcode aus dem Repository herunter, installiert die notwendigen Abhängigkeiten (diese werden bei \acs{npm} in einer Paketbeschreibungsdatei hinterlegt: \textit{package.json}) und verschiebt die fertig gebaute Anwendung in das Cloud Foundry Servernetzwerk.  
 
-Alle späteren Änderungen auf dem \textit{develop} Entwicklungszweig werden automatisch in Bluemix über dem oben beschrieben Weg angewendet. Über die grafische Oberfläche von Bluemix können zusätzliche Dienste konfiguriert werden.
+Alle späteren Änderungen auf dem ``\textit{develop}''-Entwicklungszweig werden automatisch in Bluemix über dem oben beschrieben Weg hochgeladen. Über die grafische Oberfläche von Bluemix können zusätzliche Dienste konfiguriert werden.
 
-Zur Kommunikation mit der S3 Schnittstelle des \acs{COS} wird ein Abstraktion der \acs{AWS} \gls{SDK} verwendet. Mithilfe von dieser kann mit allen \acs{S3} kompatiblen Diensten kommuniziert werden.
+Zur Kommunikation mit der S3 Schnittstelle des \acs{COS} wird eine Abstraktion der \acs{AWS}-\gls{SDK} verwendet. Mithilfe dieser kann mit allen \acs{S3} kompatiblen Diensten kommuniziert werden.
 
 Desweiteren werden folgende, im Projekt wichtige, offene Bibliotheken verwendet:
 
@@ -62,16 +62,16 @@ Desweiteren werden folgende, im Projekt wichtige, offene Bibliotheken verwendet:
 			Node.js & 7.5.0 & Javascript Laufzeitumgebung \\
 			Express & 4.15 & Framework für Webanwendungen \\
 			JQuery & 3.2.1 & Eine Sammlung von Werkzeugen, um auf unterschiedlichen Browsern javascript-Aufgaben zu vereinheitlichen \\
-			Bootstrap & 3.3.7 & Grafik Framework, um responsive Webseiten zu designen. \\
+			Bootstrap & 3.3.7 & Grafik Framework, um Mehrplattform-Webseiten zu gestalten. \\
 			Moment & 2.18.1 & Bibliothek zum Umgang mit Zeitzonen und generellen Zeitberechnungen \\
 			Filesize & 3.5.10 & Bibliothek zur automatischen Konvertierung von Dateigrößen \\
-			aws-sdk & 2.87.0 & AWS SDK, wird verwendet um S3 kompatible Dienste anzusprechen \\
+			aws-sdk & 2.87.0 & AWS SDK wird verwendet um S3 kompatible Dienste anzusprechen \\
 			ejs & 2.5.6 & HTML-ähnliches Template zur Verwendung mit Express \\
 			body-parser & 1.17.2 & Express Middleware zum Parsen von HTTP Körpern in unterschiedlichen Formaten (z.B. JSON)\\
-			Morgan & 1.8.2 & Logging Middleware für HTTP-Anfragen in express \\
+			Morgan & 1.8.2 & Logging Middleware für HTTP-Anfragen in Express \\
 			Multer & 1.3.0 & Middleware zum Umgang mit Multipart/Datei Uploads von Clientanwendungen \\
 			Toastr & 2.1.2 & Frontend Bibliothek zum Erzeugen von Toast-Nachrichten \\
-			Watson Developer Cloud & 2.34.0 & Modul zum Zugriff auf verschiedenen Watson Dienste, in diesem Fall wird Ein Bildanalyse Tool eingebunden \\
+			Watson Developer Cloud & 2.34.0 & Modul zum Zugriff auf verschiedenen Watson Dienste, in diesem Fall wird ein Bildanalyse Tool eingebunden \\
 			mkdirp & 0.5.1 & Backend Bibliothek zum Erzeugen von Ordnerhierarchien
 		\end{tabular}
 		\caption{Verwendete NPM-Pakete}
